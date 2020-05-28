@@ -5,41 +5,32 @@
 #1BB5F2
 #F26457
 */
+
 body {
   padding: 0;
   margin: 0;
 }
+/**/
 
 #app-parent {
   margin: 0;
-  display: flex;
-  flex-direction: row;
-  height: 100%;
 }
 
 .app-child {
   text-align: center;
   margin: 0;
-  width: 50vw;
-  height: 100vh;
 }
 
-#app-left {
+#app-name {
   margin: 0;
   background-color: #021740;
 }
 
-#app-right {
+#app-link {
   margin: 0;
-  text-align: right;
-}
-#profile-parent {
-  text-align: left;
-  margin-left: 10vw
 }
 
 #circle-icon {
-  border-radius: 100%;
   margin-top: 40vh;
   width: 10vw;
   height: 10vw;
@@ -47,30 +38,14 @@ body {
 
 #avater-title {
   color: #ffffff;
-  font-size: 3vw;
 }
 
 .avater-description {
   color: #ffffff;
-  font-size: 1.5vw;
-}
-
-#link-parent {
-  text-align: right;
-  margin-right: 10vw;
-  margin-left: auto;
-  margin-top: 35vh;
-  font-size: 2.5vw;
-  width: 25vw;
-
 }
 
 .link-child {
   text-align: left;
-  height: 4.5vw;
-  vertical-align: middle;
-  padding-left: 1vw;
-  margin-top: 2vh;
   border: solid 1px;
   border-color: #021740;
 }
@@ -80,10 +55,9 @@ body {
   text-decoration: none;
 }
 
-
+/* 要編集
 #link-image-twitter {
   background: url("logo-twitter.png") no-repeat right/4vw;
-  background-position: right center;
 }
 #link-image-github {
   background: url("logo-github.png") no-repeat right/4vw;
@@ -94,18 +68,21 @@ body {
 #link-image-memorandum {
   background: url("logo-memorandum.png") no-repeat right/4vw;
 }
+*/
+
 .link-image {
   width: 100%;
   height: 100%;
   background-color: #ffffff;
   margin: 0;
   padding: 0;
-  margin-right: 1vw;
 }
+
 .link-image:hover {
   /* 画像を白く */
   filter: brightness(0%) invert(100%);
 }
+
 .link-child:hover {
   background-color: #021740;
   color: #ffffff;

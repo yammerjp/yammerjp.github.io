@@ -1,0 +1,63 @@
+#app-parent {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+}
+
+.app-child {
+  width: 50vw;
+  height: 100vh;
+}
+
+#app-link {
+  text-align: right;
+}
+
+#profile-parent {
+  text-align: left;
+  margin-left: 10vw
+}
+
+#circle-icon {
+  border-radius: 100%;
+}
+
+#avater-title {
+  font-size: 3vw;
+}
+
+.avater-description {
+  font-size: 1.5vw;
+}
+
+#link-parent {
+  text-align: right;
+  margin-right: 10vw;
+  margin-left: auto;
+  margin-top: 35vh;
+  font-size: 2.5vw;
+  width: 25vw;
+}
+
+.link-child {
+  height: 4.5vw;
+  padding-left: 1vw;
+  margin-top: 2vh;
+}
+
+#link-image-twitter {
+  background: url("logo-twitter.png") no-repeat right/4vw;
+}
+#link-image-github {
+  background: url("logo-github.png") no-repeat right/4vw;
+}
+#link-image-hatenablog {
+  background: url("logo-hatenablog.png") no-repeat right/4vw;
+}
+#link-image-memorandum {
+  background: url("logo-memorandum.png") no-repeat right/4vw;
+}
+.link-image {
+  margin-right: 1vw;
+}
+
