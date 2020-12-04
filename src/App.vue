@@ -44,7 +44,7 @@ footer {
   color: #777777;
 }
 h2 {
-  margin-top: 40px;
+  margin-top: 50px;
   margin-bottom: 10px;
 }
 </style>

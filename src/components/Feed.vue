@@ -1,7 +1,7 @@
 <template>
   <a :href="feed.link">
   <div class="feed">
-    <h3 class="title">{{ feed.title }}</h3>
+    <h3 :class="{title: true, isFirst: isFirst}">{{ feed.title }}</h3>
     <div class="date_and_site">{{ date }} - {{ site }}</div>
     <div class="description">{{ description }}</div>
     <!--
@@ -18,6 +18,7 @@ export default {
   name: 'Feed',
   props: {
     feed: Object,
+    index: Number,
   },
   computed: {
     date() {
@@ -46,6 +47,9 @@ export default {
       }
       return `${this.feed.contentSnippet.slice(0, maxLength - 1)}...`;
     },
+    isFirst() {
+      return (this.index === 0);
+    },
   },
 };
 </script>
@@ -70,12 +74,10 @@ a {
   text-decoration: underline;
   margin-bottom: 0;
   font-weight: normal;
+  margin-top: 30px;
 }
-.feed h3.title:first-child {
+.feed h3.isFirst {
   margin-top: 0px;
-}
-.feed h3.title:not(:first-child) {
-  margin-top: 50px;
 }
 ul {
   list-style-type: none;

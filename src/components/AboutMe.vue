@@ -41,6 +41,7 @@ export default {
 }
 
 .links {
+  margin-top: 5px;
   width: 100%;
 }
 .links > a {
