@@ -1,6 +1,13 @@
 <template>
   <div class="avater">
-    <img alt="basd4g avater icon" src="../assets/avater.jpg" class="avater-icon">
+    <img
+      alt="basd4g avater icon"
+      src="../assets/gather_fishes_200x200.jpg"
+      srcset="../assets/gather_fishes_200x200.jpg 1x, ../assets/gather_fishes_400x400.jpg 2x"
+      class="avater-icon"
+      width="200px"
+      height="200px"
+    >
     <div>Keisuke Nakayama</div>
     <!--
     <div>Web Frontend Developper</div>
@@ -19,8 +26,6 @@ export default {
 <style scoped>
 .avater-icon {
   border-radius: 50%;
-  width: 200px;
-  height: 200px;
 }
 .avater {
   font-size: 30px;
