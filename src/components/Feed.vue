@@ -71,6 +71,9 @@ a {
   margin-bottom: 0;
   font-weight: normal;
 }
+.feed h3.title:first-child {
+  margin-top: 0px;
+}
 .feed h3.title:not(:first-child) {
   margin-top: 50px;
 }
