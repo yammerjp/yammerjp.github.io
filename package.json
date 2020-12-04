@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "rss": "node ./rss2json",
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "rss": "./rss2json",
+    "serve": "./rss2json && vue-cli-service serve",
+    "build": "./rss2json && vue-cli-service build && cp CNAME dist/CNAME",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
