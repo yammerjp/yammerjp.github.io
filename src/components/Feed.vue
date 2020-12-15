@@ -25,7 +25,7 @@ export default {
       const d = new Date(this.feed.isoDate);
       const yyyy = `${d.getFullYear()}`;
       const mm = (`00${d.getMonth() + 1}`).slice(-2);
-      const dd = (`00${d.getDay() + 1}`).slice(-2);
+      const dd = (`00${d.getDate()}`).slice(-2);
       return `${yyyy}/${mm}/${dd}`;
     },
     site() {
