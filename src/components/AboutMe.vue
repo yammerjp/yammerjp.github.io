@@ -11,7 +11,7 @@
     <tr>
       <td>Education</td>
       <td>Department of Information and Computer Sciences, Saitama University
-      <br>埼玉大学工学部情報システム工学科 (2017- )</td>
+      <br>埼玉大学工学部情報システム工学科 (2017-2021)</td>
     </tr>
     </table>
     <h2>Links</h2>
