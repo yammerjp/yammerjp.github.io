@@ -1,12 +1,11 @@
 <template>
   <div class="feeds">
-    <h2>Posts</h2>
+    <h2 v-if="feeds.length !== 0">Posts</h2>
     <Feed  v-for="(feed, index) in feeds" :key="feed.link" :feed="feed" :index="index"/>
   </div>
 </template>
 
 <script>
-import feeds from '../../feeds.json';
 import Feed from './Feed.vue';
 
 export default {
@@ -15,11 +14,8 @@ export default {
     Feed,
   },
   props: {
-    msg: String,
+    feeds: Array,
   },
-  data: () => ({
-    feeds,
-  }),
 };
 </script>
 
