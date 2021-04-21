@@ -1,0 +1,37 @@
+on:
+  push:
+    branches:
+      - dev-llp
+      - master
+name: Build and Deploy to Web server
+jobs:
+  FTP-Deploy-Action:
+    name: FTP-Deploy-Action
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+
+      - name: Use Node.js 12.13
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.13'
+
+      - name: Build Project
+        run: |
+          npm install
+          npm run build
+
+      - name: List output files
+        run: ls
+
+      - name: FTP-Deploy-Action
+        uses: SamKirkland/FTP-Deploy-Action@2.0.0
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          PROTOCOL: ftps
+          LOCAL_DIR: dist
+          REMOTE_DIR: basd4g-net
+          ARGS: --delete
+          # --delete arg will delete files on the server if you've deleted them in git
