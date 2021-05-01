@@ -5,7 +5,7 @@
   "scripts": {
     "rss": "./rss2json",
     "serve": "./rss2json && vue-cli-service serve",
-    "build": "./rss2json && vue-cli-service build",
+    "build": "./rss2json && vue-cli-service build && cp .htaccess dist/", 
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
