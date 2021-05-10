@@ -1,7 +1,7 @@
 <template>
   <div class="avater">
     <img
-      alt="basd4g avater icon"
+      alt="yammerjp avater icon"
       src="../assets/gather_fishes_200x200.jpg"
       srcset="../assets/gather_fishes_200x200.jpg 1x, ../assets/gather_fishes_400x400.jpg 2x"
       class="avater-icon"

@@ -16,11 +16,11 @@
     </table>
     <h2>Links</h2>
     <div class="links">
-      <a href="https://twitter.com/basd4g">Twitter</a>
-      <a href="https://github.com/basd4g">GitHub</a>
+      <a href="https://twitter.com/yammerjp">Twitter</a>
+      <a href="https://github.com/yammerjp">GitHub</a>
       <a href="https://qiita.com/basd4g">Qiita</a>
       <a href="https://basd4g.hatenablog.com">はてなブログ</a>
-      <a href="https://memo.basd4g.net">memo.basd4g.net</a>
+      <a href="https://memo.yammer.jp">memo.yammer.jp</a>
     </div>
   </div>
 </template>

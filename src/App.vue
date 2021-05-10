@@ -13,8 +13,8 @@
 import Avater from './components/Avater.vue';
 import Feeds from './components/Feeds.vue';
 import AboutMe from './components/AboutMe.vue';
+import feeds from '../feeds.json';
 
-const url = 'https://rss-republish.basd4g.net/api/rss.json';
 export default {
   name: 'App',
   components: {
@@ -23,17 +23,8 @@ export default {
     Feeds,
   },
   data: () => ({
-    feeds: [],
+    feeds
   }),
-  mounted() {
-    this.axios.get(url).then((response) => {
-      if (response.status === 200) {
-        this.feeds = response.data.feeds;
-      } else {
-        console.error(`failed to fetch from ${url}`);
-      }
-    });
-  },
 };
 </script>
 
