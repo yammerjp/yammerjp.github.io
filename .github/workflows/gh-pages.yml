@@ -13,7 +13,17 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - run: mkdir dist && cp CNAME dist/CNAME
+    - name: Use Node.js 12.13
+      uses: actions/setup-node@v1
+      with:
+        node-version: '12.13'
+    - name: Build Project
+      run: |
+        npm install
+        npm run build
+        cp CNAME dist/CNAME
+    - name: List output files
+      run: ls
 
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v3
