@@ -23,7 +23,7 @@ export default {
     Feeds,
   },
   data: () => ({
-    feeds
+    feeds,
   }),
 };
 </script>
