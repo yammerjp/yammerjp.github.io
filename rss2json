@@ -5,8 +5,11 @@ const parser = new Parser()
 const fs = require('fs')
 
 async function main() {
-  const feedQiita = await parser.parseURL('https://qiita.com/basd4g/feed.atom')
+  console.log('fetching qiita...')
+  const feedQiita = await parser.parseURL('https://qiita.com/yammerjp/feed.atom')
+  console.log('fetching memo.yammer.jp...')
   const feedMemo = await parser.parseURL('https://memo.yammer.jp/posts/index.xml')
+  console.log('fetching hatenablog...')
   const feedHatena = await parser.parseURL('https://basd4g.hatenablog.com/rss')
   const feeds = [...feedQiita.items, ...feedMemo.items, ...feedHatena.items].sort( (a,b) => (a.isoDate >= b.isoDate ? -1:1));
 
@@ -29,6 +32,7 @@ async function main() {
 
 const writefilePromise = (path, data) => new Promise((resolve, reject) => {
   fs.writeFile(path, data, (err) => {
+    console.log(path);
     if (err) reject(err);
     resolve();
   });
