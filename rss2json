@@ -1,0 +1,42 @@
+#!/usr/bin/env node
+`use strict`
+const Parser = require('rss-parser')
+const parser = new Parser()
+const fs = require('fs')
+
+async function main() {
+  console.log('fetching qiita...')
+  const feedQiita = await parser.parseURL('https://qiita.com/yammerjp/feed.atom')
+  console.log('fetching memo.yammer.jp...')
+  const feedMemo = await parser.parseURL('https://memo.yammer.jp/posts/index.xml')
+  console.log('fetching hatenablog...')
+  const feedHatena = await parser.parseURL('https://basd4g.hatenablog.com/rss')
+  const feeds = [...feedQiita.items, ...feedMemo.items, ...feedHatena.items].sort( (a,b) => (a.isoDate >= b.isoDate ? -1:1));
+
+  await writefilePromise('./feeds.json', JSON.stringify(feeds))
+
+/*
+  console.log("<html>")
+  feeds.forEach( feed => {
+    console.log("<div style=\"margin:10px; border: solid, 1px;\">")
+    console.log(`<div class='feed_title'>${feed.title}</div>`)
+    console.log(`<div class='feed_url'>${feed.url}</div>`)
+    console.log(`<div class='feed_isoDate'>${feed.isoDate}</div>`)
+    console.log(`<details><div class='feed_content'>${feed.content}</div></details>`)
+    console.log(`<details><div class='feed_contentSnippet'>${feed.contentSnippet}</div></details>`)
+    console.log("</div>")
+  })
+  console.log("</html>")
+  */
+}
+
+const writefilePromise = (path, data) => new Promise((resolve, reject) => {
+  fs.writeFile(path, data, (err) => {
+    console.log(path);
+    if (err) reject(err);
+    resolve();
+  });
+});
+
+main()
+
