@@ -13,10 +13,10 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Use Node.js 12.13
+    - name: Use Node.js 16.4.0
       uses: actions/setup-node@v1
       with:
-        node-version: '12.13'
+        node-version: '16.4.0'
     - name: Build Project
       run: |
         npm install
