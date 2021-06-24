@@ -1,25 +1,29 @@
-# basd4g.github.io
+# New Project
 
-This Repository is the source of my Web site ([basd4g.net](https://basd4g.net)).
+> ✨ Bootstrapped with Create Snowpack App (CSA).
 
-## Setup
+## Available Scripts
 
-```sh
-# Project setup
-git clone https://github.com/basd4g.github.io
-npm install
+### npm start
 
-# Compiles and hot-reloads for development
-npm run serve
+Runs the app in the development mode.
+Open http://localhost:8080 to view it in the browser.
 
-# Compiles and minifies for production
-npm run build
+The page will reload if you make edits.
+You will also see any lint errors in the console.
 
-# Lints and fixes file
-npm run lint
-```
+### npm test
 
-## ToDo
+Launches the test runner in the interactive watch mode.
+See the section about running tests for more information.
 
-- OGP
-- the API of casting recently posts with JSON
+### npm run build
+
+Builds a static copy of your site to the `build/` folder.
+Your app is ready to be deployed!
+
+**For the best production performance:** Add a build bundler plugin like [@snowpack/plugin-webpack](https://github.com/snowpackjs/snowpack/tree/main/plugins/plugin-webpack) or [snowpack-plugin-rollup-bundle](https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle) to your `snowpack.config.mjs` config file.
+
+### Q: What about Eject?
+
+No eject needed! Snowpack guarantees zero lock-in, and CSA strives for the same.

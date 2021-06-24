@@ -1,30 +1,26 @@
 {
-  "name": "basd4g.net",
-  "version": "0.1.0",
-  "private": true,
   "scripts": {
-    "rss": "./rss2json",
-    "serve": "./rss2json && vue-cli-service serve",
-    "build": "./rss2json && vue-cli-service build && cp .htaccess dist/",
-    "lint": "vue-cli-service lint"
+    "start": "snowpack dev",
+    "build": "snowpack build",
+    "test": "web-test-runner \"src/**/*.test.ts\""
   },
   "dependencies": {
-    "@vue/cli-plugin-babel": "^4.5.13",
-    "@vue/cli-plugin-eslint": "^4.5.13",
-    "@vue/cli-service": "^3.0.5",
-    "@vue/eslint-config-airbnb": "^5.3.0",
-    "axios": "^0.21.1",
-    "babel-eslint": "^10.1.0",
-    "core-js": "^3.12.1",
-    "eslint": "^6.8.0",
-    "eslint-plugin-import": "^2.23.2",
-    "eslint-plugin-vue": "^7.9.0",
-    "rss-parser": "^3.12.0",
-    "vue": "^2.6.12",
-    "vue-axios": "^3.2.4",
-    "vue-template-compiler": "^2.6.12"
+    "svelte": "^3.37.0"
   },
   "devDependencies": {
-    "serialize-javascript": "^4.0.0"
+    "@snowpack/plugin-dotenv": "^2.1.0",
+    "@snowpack/plugin-svelte": "^3.6.1",
+    "@snowpack/plugin-typescript": "^1.2.1",
+    "@snowpack/web-test-runner-plugin": "^0.2.2",
+    "@testing-library/svelte": "^3.0.3",
+    "@tsconfig/svelte": "^1.0.10",
+    "@types/chai": "^4.2.17",
+    "@types/mocha": "^8.2.2",
+    "@types/snowpack-env": "^2.3.3",
+    "@web/test-runner": "^0.13.3",
+    "chai": "^4.3.4",
+    "snowpack": "^3.3.7",
+    "svelte-preprocess": "^4.7.2",
+    "typescript": "^4.2.4"
   }
 }
