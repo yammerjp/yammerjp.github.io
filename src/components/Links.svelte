@@ -1,20 +1,20 @@
 <h2>Links</h2>
 <div class="links">
-  <a href="https://twitter.com/yammerjp">
-    Twitter
-  </a>
-  <a href="https://github.com/yammerjp">
-    GitHub
-  </a>
-  <a href="https://qiita.com/basd4g">
-    Qiita
-  </a>
-  <a href="https://basd4g.hatenablog.com">
-    はてなブログ
-  </a>
-  <a href="https://memo.yammer.jp">
-    memo.yammer.jp
-  </a>
+<a href="https://twitter.com/yammerjp">
+    <img class="links-icon twitter" alt="twitter icon" src="assets/twitter.png" />
+</a>
+<a href="https://github.com/yammerjp">
+    <img class="links-icon github" alt="github icon" src="assets/github.png" />
+</a>
+<a href="https://qiita.com/basd4g">
+    <img class="links-icon qiita" alt="qiita icon" src="assets/qiita.png" />
+</a>
+<a href="https://basd4g.hatenablog.com">
+    <img class="links-icon hatenablog" alt="hatenablog icon" src="assets/hatenablog.png" />
+</a>
+<a href="https://memo.yammer.jp">
+    <img class="links-icon memo-yammer-jp" alt="memo.yammer.jp icon" src="assets/memo-yammer-jp.png" />
+</a>
 </div>
 
 <style>
@@ -51,4 +51,9 @@
   }
 }
 
+.links-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 8px;
+}
 </style>
