@@ -24,7 +24,7 @@ function site() {
 }
 
 function description() {
-  const maxLength = 100;
+  const maxLength = 400;
   if (feed.contentSnippet.length <= maxLength) {
     return feed.contentSnippet;
   }
@@ -53,10 +53,18 @@ a {
 .feed {
   text-align: left;
 }
+
 .feed .description {
-  color: #2c3e50;
+  color: #2c3e50e0;
   font-size: 16px;
+  /* 3行表示し、残りは ... で隠す. ベンダープレフィックスがあるが主要ブラウザの最新版は各対応 */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  max-height:48px; /* line-clamp 非対応のブラウザでも全文が表示されるのを避ける */
 }
+
 .feed .date_and_site {
   margin: 5px 0;
   color: #777777;
