@@ -5,7 +5,7 @@
   {/each}
 </div>
 
-<script>
+<script lang="typescript">
 import Feed from './Feed.svelte';
 export let feeds: FeedType[]
 
