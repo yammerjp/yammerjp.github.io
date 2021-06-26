@@ -11,8 +11,8 @@ function date() {
 }
 
 function site() {
-  if (/^https:\/\/memo\.basd4g\.net/.test(feed.link)) {
-    return 'memo.basd4g.net';
+  if (/^https:\/\/memo\.yammer\.jp/.test(feed.link)) {
+    return 'memo.yammer.jp';
   }
   if (/^https:\/\/basd4g\.hatenablog\.com/.test(feed.link)) {
     return 'はてなブログ';
