@@ -1,21 +1,56 @@
 <h2>Links</h2>
 <div class="links">
-<a href="https://twitter.com/yammerjp">
-    <img class="links-icon twitter" alt="twitter icon" src="assets/twitter.png" />
-</a>
-<a href="https://github.com/yammerjp">
-    <img class="links-icon github" alt="github icon" src="assets/github.png" />
-</a>
-<a href="https://qiita.com/basd4g">
-    <img class="links-icon qiita" alt="qiita icon" src="assets/qiita.png" />
-</a>
-<a href="https://basd4g.hatenablog.com">
-    <img class="links-icon hatenablog" alt="hatenablog icon" src="assets/hatenablog.png" />
-</a>
-<a href="https://memo.yammer.jp">
-    <img class="links-icon memo-yammer-jp" alt="memo.yammer.jp icon" src="assets/memo-yammer-jp.png" />
-</a>
+  {#each linkItems as linkItem}
+    <!-- <div class="link-item"> -->
+      <a href="{linkItem.url}">
+        <img class="links-icon {linkItem.id}" src="{linkItem.imgSrc}" alt="{linkItem.displayTitle} icon"/>
+        <div>{linkItem.displayTitle}</div>
+      </a>
+    <!-- </div> -->
+  {/each}
 </div>
+
+<script>
+  type LinkItem = {
+    id: string;
+    displayTitle: string;
+    url: string;
+    imgSrc: string;
+  }
+  const linkItems: LinkItem[] = [
+    {
+      id: 'twitter',
+      displayTitle: 'Twitter',
+      url: 'https://twitter.com/yammerjp',
+      imgSrc: '/assets/twitter.png'
+    },
+    {
+      id: 'github',
+      displayTitle: 'GitHub',
+      url: 'https://github.com/yammerjp',
+      imgSrc: '/assets/github.png'
+    },
+    {
+      id: 'qiita',
+      displayTitle: 'Qiita',
+      url: 'https://qiita.com/basd4g',
+      imgSrc: '/assets/qiita.png'
+    },
+    {
+      id: 'hatenablog',
+      displayTitle: 'はてなブログ',
+      url: 'https://basd4g.hatenablog.com',
+      imgSrc: '/assets/hatenablog.png'
+    },
+    {
+      id: 'memo-yammer-jp',
+      displayTitle: 'memo.yammer.jp',
+      url: 'https://memo.yammer.jp',
+      imgSrc: '/assets/memo-yammer-jp.png'
+    },
+  ]
+
+</script>
 
 <style>
 .links {
