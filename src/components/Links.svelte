@@ -4,7 +4,7 @@
     <!-- <div class="link-item"> -->
       <a href="{linkItem.url}">
         <img class="links-icon {linkItem.id}" src="{linkItem.imgSrc}" alt="{linkItem.displayTitle} icon"/>
-        <div>{linkItem.displayTitle}</div>
+        <div class="title-wrapper"><span class="title">{linkItem.displayTitle}</span></div>
       </a>
     <!-- </div> -->
   {/each}
@@ -67,6 +67,7 @@
 }
 @media screen and (min-width: 430px) {
   .links {
+    margin-top: 16px;
     text-align: center;
     display: inline-flex;
     justify-content: space-between;
@@ -74,12 +75,7 @@
   }
   .links > a {
     flex-grow: 1;
-    border-style: solid;
-    border-color: #777777;
-    border-width: 0 1px 0 0;
-  }
-  .links > a:first-child {
-    border-width: 0 1px;
+    flex: 1;
   }
   .links > a:before {
     content: none;
@@ -90,5 +86,19 @@
   width: 64px;
   height: 64px;
   border-radius: 8px;
+}
+.links-icon {
+	box-shadow: 0 0 3px 0 rgba(0,0,0,.12), 0 2px 3px 0 rgba(0,0,0,.22);
+	transition: .3s;
+}
+.links a:hover .links-icon{
+	box-shadow: 0 15px 30px -5px rgba(0,0,0,.15), 0 0 5px rgba(0,0,0,.1);
+	transform: translateY(-4px);
+}
+.links a:not(:hover) .title {
+  display: none;
+}
+.title-wrapper {
+  height: 16px;
 }
 </style>
