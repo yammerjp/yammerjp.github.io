@@ -78,4 +78,14 @@ a {
 .feed h3.isFirst {
   margin-top: 0px;
 }
+
+.feed:hover {
+  background: #f8f8f8;
+  border-radius: 8px;
+}
+.feed:hover .description{
+  color: #222222;
+}
+
+
 </style>
