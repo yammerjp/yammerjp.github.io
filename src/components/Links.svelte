@@ -89,7 +89,7 @@
 }
 .links-icon {
 	box-shadow: 0 0 3px 0 rgba(0,0,0,.12), 0 2px 3px 0 rgba(0,0,0,.22);
-	transition: .3s;
+	transition: .1s;
 }
 .links a:hover .links-icon{
 	box-shadow: 0 15px 30px -5px rgba(0,0,0,.15), 0 0 5px rgba(0,0,0,.1);
