@@ -33,7 +33,7 @@
     {
       id: 'qiita',
       displayTitle: 'Qiita',
-      url: 'https://qiita.com/basd4g',
+      url: 'https://qiita.com/yammerjp',
       imgSrc: '/assets/qiita.png'
     },
     {
