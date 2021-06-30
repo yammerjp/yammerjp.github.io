@@ -17,7 +17,7 @@ function site() {
   if (/^https:\/\/basd4g\.hatenablog\.com/.test(feed.link)) {
     return 'はてなブログ';
   }
-  if (/^https:\/\/qiita\.com\/basd4g/.test(feed.link)) {
+  if (/^https:\/\/qiita\.com\/yammerjp/.test(feed.link)) {
     return 'Qiita';
   }
   return feed.link;
