@@ -56,30 +56,18 @@
 .links {
   margin-top: 5px;
   width: 100%;
+  margin-top: 16px;
+  text-align: center;
+  display: inline-flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
+
 .links > a {
   display: block;
-}
-.links > a:before {
-  content: "・";
-  display: inline-block;
-  text-decoration: none;
-}
-@media screen and (min-width: 430px) {
-  .links {
-    margin-top: 16px;
-    text-align: center;
-    display: inline-flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-  }
-  .links > a {
-    flex-grow: 1;
-    flex: 1;
-  }
-  .links > a:before {
-    content: none;
-  }
+  flex-grow: 1;
+  flex: 1;
+  margin: 8px 0px;
 }
 
 .links-icon {
@@ -100,5 +88,14 @@
 }
 .title-wrapper {
   height: 16px;
+}
+
+@media screen and (max-width: 410px) {
+  .links .title {
+    display: none;
+  }
+  .title-wrapper {
+    height: 0px;
+  }
 }
 </style>
