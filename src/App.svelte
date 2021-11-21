@@ -2,7 +2,7 @@
   <Avater />
   <AboutMe />
   <Links />
-  <Feeds feeds="{feeds}"/>
+  <Feeds />
   <footer>
     <div>©2020 Keisuke Nakayama</div>
   </footer>
@@ -13,8 +13,7 @@ import Avater from './components/Avater.svelte';
 import Feeds from './components/Feeds.svelte';
 import AboutMe from './components/AboutMe.svelte';
 import Links from './components/Links.svelte'
-import feedsJson from './feeds.json';
-const feeds = feedsJson as FeedType[]
+
 </script>
 
 <style>
@@ -27,6 +26,10 @@ const feeds = feedsJson as FeedType[]
   text-align: left;
   max-width: 800px;
   margin: 0 auto;
+}
+
+:global(html) {
+ overflow-y: scroll;
 }
 
 :global(a) {

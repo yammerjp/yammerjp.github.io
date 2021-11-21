@@ -1,8 +1,7 @@
 {
   "scripts": {
-    "fetch": "./rss2json && mv feeds.json src",
-    "start": "./rss2json && mv feeds.json src && snowpack dev",
-    "build": "./rss2json && mv feeds.json src && snowpack build",
+    "start": "snowpack dev",
+    "build": "snowpack build",
     "test": "web-test-runner \"src/**/*.test.ts\""
   },
   "dependencies": {
