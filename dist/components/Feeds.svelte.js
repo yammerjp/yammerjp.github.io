@@ -10,71 +10,55 @@ import {
 	destroy_each,
 	detach,
 	element,
+	empty,
 	group_outros,
+	handle_promise,
 	init,
 	insert,
 	mount_component,
+	noop,
 	safe_not_equal,
 	space,
 	transition_in,
-	transition_out
+	transition_out,
+	update_await_block_branch
 } from "../../_snowpack/pkg/svelte/internal.js";
 
 import Feed from "./Feed.svelte.js";
 
 function get_each_context(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[1] = list[i];
-	child_ctx[3] = i;
+	child_ctx[3] = list[i];
+	child_ctx[5] = i;
 	return child_ctx;
 }
 
-// (3:2) {#each feeds as feed, i}
-function create_each_block(ctx) {
-	let feed;
-	let current;
-
-	feed = new Feed({
-			props: {
-				feed: /*feed*/ ctx[1],
-				index: /*i*/ ctx[3]
-			}
-		});
+// (9:2) {:catch error}
+function create_catch_block(ctx) {
+	let p;
 
 	return {
 		c() {
-			create_component(feed.$$.fragment);
+			p = element("p");
+			p.textContent = "failed to fetch feeds...";
 		},
 		m(target, anchor) {
-			mount_component(feed, target, anchor);
-			current = true;
+			insert(target, p, anchor);
 		},
-		p(ctx, dirty) {
-			const feed_changes = {};
-			if (dirty & /*feeds*/ 1) feed_changes.feed = /*feed*/ ctx[1];
-			feed.$set(feed_changes);
-		},
-		i(local) {
-			if (current) return;
-			transition_in(feed.$$.fragment, local);
-			current = true;
-		},
-		o(local) {
-			transition_out(feed.$$.fragment, local);
-			current = false;
-		},
+		p: noop,
+		i: noop,
+		o: noop,
 		d(detaching) {
-			destroy_component(feed, detaching);
+			if (detaching) detach(p);
 		}
 	};
 }
 
-function create_fragment(ctx) {
-	let div;
-	let h2;
-	let t1;
+// (5:2) {:then feeds}
+function create_then_block(ctx) {
+	let each_1_anchor;
 	let current;
-	let each_value = /*feeds*/ ctx[0];
+	let each_value = /*feeds*/ ctx[2];
 	let each_blocks = [];
 
 	for (let i = 0; i < each_value.length; i += 1) {
@@ -87,32 +71,23 @@ function create_fragment(ctx) {
 
 	return {
 		c() {
-			div = element("div");
-			h2 = element("h2");
-			h2.textContent = "Posts";
-			t1 = space();
-
 			for (let i = 0; i < each_blocks.length; i += 1) {
 				each_blocks[i].c();
 			}
 
-			attr(h2, "v-if", "feeds.length !== 0");
-			attr(div, "class", "feeds svelte-1g2bm0g");
+			each_1_anchor = empty();
 		},
 		m(target, anchor) {
-			insert(target, div, anchor);
-			append(div, h2);
-			append(div, t1);
-
 			for (let i = 0; i < each_blocks.length; i += 1) {
-				each_blocks[i].m(div, null);
+				each_blocks[i].m(target, anchor);
 			}
 
+			insert(target, each_1_anchor, anchor);
 			current = true;
 		},
-		p(ctx, [dirty]) {
-			if (dirty & /*feeds*/ 1) {
-				each_value = /*feeds*/ ctx[0];
+		p(ctx, dirty) {
+			if (dirty & /*fetchFeeds*/ 1) {
+				each_value = /*feeds*/ ctx[2];
 				let i;
 
 				for (i = 0; i < each_value.length; i += 1) {
@@ -125,7 +100,7 @@ function create_fragment(ctx) {
 						each_blocks[i] = create_each_block(child_ctx);
 						each_blocks[i].c();
 						transition_in(each_blocks[i], 1);
-						each_blocks[i].m(div, null);
+						each_blocks[i].m(each_1_anchor.parentNode, each_1_anchor);
 					}
 				}
 
@@ -157,26 +132,203 @@ function create_fragment(ctx) {
 			current = false;
 		},
 		d(detaching) {
-			if (detaching) detach(div);
 			destroy_each(each_blocks, detaching);
+			if (detaching) detach(each_1_anchor);
 		}
 	};
 }
 
-function instance($$self, $$props, $$invalidate) {
-	let { feeds } = $$props;
+// (6:4) {#each feeds as feed, i}
+function create_each_block(ctx) {
+	let feed;
+	let current;
 
-	$$self.$$set = $$props => {
-		if ("feeds" in $$props) $$invalidate(0, feeds = $$props.feeds);
+	feed = new Feed({
+			props: {
+				feed: /*feed*/ ctx[3],
+				index: /*i*/ ctx[5]
+			}
+		});
+
+	return {
+		c() {
+			create_component(feed.$$.fragment);
+		},
+		m(target, anchor) {
+			mount_component(feed, target, anchor);
+			current = true;
+		},
+		p: noop,
+		i(local) {
+			if (current) return;
+			transition_in(feed.$$.fragment, local);
+			current = true;
+		},
+		o(local) {
+			transition_out(feed.$$.fragment, local);
+			current = false;
+		},
+		d(detaching) {
+			destroy_component(feed, detaching);
+		}
+	};
+}
+
+// (3:60)      <p>...waiting</p>   {:then feeds}
+function create_pending_block(ctx) {
+	let p;
+
+	return {
+		c() {
+			p = element("p");
+			p.textContent = "...waiting";
+		},
+		m(target, anchor) {
+			insert(target, p, anchor);
+		},
+		p: noop,
+		i: noop,
+		o: noop,
+		d(detaching) {
+			if (detaching) detach(p);
+		}
+	};
+}
+
+function create_fragment(ctx) {
+	let div;
+	let h2;
+	let t1;
+	let promise;
+	let current;
+
+	let info = {
+		ctx,
+		current: null,
+		token: null,
+		hasCatch: true,
+		pending: create_pending_block,
+		then: create_then_block,
+		catch: create_catch_block,
+		value: 2,
+		error: 6,
+		blocks: [,,,]
 	};
 
-	return [feeds];
+	handle_promise(promise = /*fetchFeeds*/ ctx[0]("https://rsss.yammer.jp/v0/json_feed"), info);
+
+	return {
+		c() {
+			div = element("div");
+			h2 = element("h2");
+			h2.textContent = "Posts";
+			t1 = space();
+			info.block.c();
+			attr(h2, "v-if", "feeds.length !== 0");
+			attr(div, "class", "feeds svelte-1g2bm0g");
+		},
+		m(target, anchor) {
+			insert(target, div, anchor);
+			append(div, h2);
+			append(div, t1);
+			info.block.m(div, info.anchor = null);
+			info.mount = () => div;
+			info.anchor = null;
+			current = true;
+		},
+		p(new_ctx, [dirty]) {
+			ctx = new_ctx;
+			update_await_block_branch(info, ctx, dirty);
+		},
+		i(local) {
+			if (current) return;
+			transition_in(info.block);
+			current = true;
+		},
+		o(local) {
+			for (let i = 0; i < 3; i += 1) {
+				const block = info.blocks[i];
+				transition_out(block);
+			}
+
+			current = false;
+		},
+		d(detaching) {
+			if (detaching) detach(div);
+			info.block.d();
+			info.token = null;
+			info = null;
+		}
+	};
+}
+
+function instance($$self) {
+	var __awaiter = this && this.__awaiter || function (thisArg, _arguments, P, generator) {
+		function adopt(value) {
+			return value instanceof P
+			? value
+			: new P(function (resolve) {
+						resolve(value);
+					});
+		}
+
+		return new (P || (P = Promise))(function (resolve, reject) {
+				function fulfilled(value) {
+					try {
+						step(generator.next(value));
+					} catch(e) {
+						reject(e);
+					}
+				}
+
+				function rejected(value) {
+					try {
+						step(generator["throw"](value));
+					} catch(e) {
+						reject(e);
+					}
+				}
+
+				function step(result) {
+					result.done
+					? resolve(result.value)
+					: adopt(result.value).then(fulfilled, rejected);
+				}
+
+				step((generator = generator.apply(thisArg, _arguments || [])).next());
+			});
+	};
+
+	function fetchFeeds(json_feed_url) {
+		return __awaiter(this, void 0, void 0, function* () {
+			const response = yield fetch(json_feed_url);
+			const responseJson = yield response.json();
+			console.log(responseJson);
+
+			const feeds = (responseJson === null || responseJson === void 0
+			? void 0
+			: responseJson.items).map(item => {
+				return {
+					title: item.title,
+					link: item.url,
+					content: item.summary,
+					contentSnippet: item.summary,
+					guid: item.id,
+					isoDate: item.date_published
+				};
+			});
+
+			return feeds;
+		});
+	}
+
+	return [fetchFeeds];
 }
 
 class Feeds extends SvelteComponent {
 	constructor(options) {
 		super();
-		init(this, options, instance, create_fragment, safe_not_equal, { feeds: 0 });
+		init(this, options, instance, create_fragment, safe_not_equal, {});
 	}
 }
 

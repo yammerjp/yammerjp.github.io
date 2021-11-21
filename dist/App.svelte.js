@@ -22,7 +22,6 @@ import Avater from "./components/Avater.svelte.js";
 import Feeds from "./components/Feeds.svelte.js";
 import AboutMe from "./components/AboutMe.svelte.js";
 import Links from "./components/Links.svelte.js";
-import feedsJson from "./feeds.json.proxy.js";
 
 function create_fragment(ctx) {
 	let div1;
@@ -32,14 +31,14 @@ function create_fragment(ctx) {
 	let t1;
 	let links;
 	let t2;
-	let feeds_1;
+	let feeds;
 	let t3;
 	let footer;
 	let current;
 	avater = new Avater({});
 	aboutme = new AboutMe({});
 	links = new Links({});
-	feeds_1 = new Feeds({ props: { feeds: /*feeds*/ ctx[0] } });
+	feeds = new Feeds({});
 
 	return {
 		c() {
@@ -50,13 +49,13 @@ function create_fragment(ctx) {
 			t1 = space();
 			create_component(links.$$.fragment);
 			t2 = space();
-			create_component(feeds_1.$$.fragment);
+			create_component(feeds.$$.fragment);
 			t3 = space();
 			footer = element("footer");
 			footer.innerHTML = `<div>©2020 Keisuke Nakayama</div>`;
-			attr(footer, "class", "svelte-1ywqnxy");
+			attr(footer, "class", "svelte-ma6l8f");
 			attr(div1, "id", "app");
-			attr(div1, "class", "svelte-1ywqnxy");
+			attr(div1, "class", "svelte-ma6l8f");
 		},
 		m(target, anchor) {
 			insert(target, div1, anchor);
@@ -66,7 +65,7 @@ function create_fragment(ctx) {
 			append(div1, t1);
 			mount_component(links, div1, null);
 			append(div1, t2);
-			mount_component(feeds_1, div1, null);
+			mount_component(feeds, div1, null);
 			append(div1, t3);
 			append(div1, footer);
 			current = true;
@@ -77,14 +76,14 @@ function create_fragment(ctx) {
 			transition_in(avater.$$.fragment, local);
 			transition_in(aboutme.$$.fragment, local);
 			transition_in(links.$$.fragment, local);
-			transition_in(feeds_1.$$.fragment, local);
+			transition_in(feeds.$$.fragment, local);
 			current = true;
 		},
 		o(local) {
 			transition_out(avater.$$.fragment, local);
 			transition_out(aboutme.$$.fragment, local);
 			transition_out(links.$$.fragment, local);
-			transition_out(feeds_1.$$.fragment, local);
+			transition_out(feeds.$$.fragment, local);
 			current = false;
 		},
 		d(detaching) {
@@ -92,20 +91,15 @@ function create_fragment(ctx) {
 			destroy_component(avater);
 			destroy_component(aboutme);
 			destroy_component(links);
-			destroy_component(feeds_1);
+			destroy_component(feeds);
 		}
 	};
-}
-
-function instance($$self) {
-	const feeds = feedsJson;
-	return [feeds];
 }
 
 class App extends SvelteComponent {
 	constructor(options) {
 		super();
-		init(this, options, instance, create_fragment, safe_not_equal, {});
+		init(this, options, null, create_fragment, safe_not_equal, {});
 	}
 }
 

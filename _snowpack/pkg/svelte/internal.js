@@ -1,5 +1,8 @@
 function noop() {
 }
+function is_promise(value) {
+  return value && typeof value === "object" && typeof value.then === "function";
+}
 function run(fn) {
   return fn();
 }
@@ -116,6 +119,9 @@ function text(data) {
 function space() {
   return text(" ");
 }
+function empty() {
+  return text("");
+}
 function attr(node, attribute, value) {
   if (value == null)
     node.removeAttribute(attribute);
@@ -133,6 +139,11 @@ function set_data(text2, data) {
 let current_component;
 function set_current_component(component) {
   current_component = component;
+}
+function get_current_component() {
+  if (!current_component)
+    throw new Error("Function called outside component initialization");
+  return current_component;
 }
 const dirty_components = [];
 const binding_callbacks = [];
@@ -227,6 +238,84 @@ function transition_out(block, local, detach2, callback) {
     });
     block.o(local);
   }
+}
+function handle_promise(promise2, info) {
+  const token = info.token = {};
+  function update2(type, index, key, value) {
+    if (info.token !== token)
+      return;
+    info.resolved = value;
+    let child_ctx = info.ctx;
+    if (key !== void 0) {
+      child_ctx = child_ctx.slice();
+      child_ctx[key] = value;
+    }
+    const block = type && (info.current = type)(child_ctx);
+    let needs_flush = false;
+    if (info.block) {
+      if (info.blocks) {
+        info.blocks.forEach((block2, i) => {
+          if (i !== index && block2) {
+            group_outros();
+            transition_out(block2, 1, 1, () => {
+              if (info.blocks[i] === block2) {
+                info.blocks[i] = null;
+              }
+            });
+            check_outros();
+          }
+        });
+      } else {
+        info.block.d(1);
+      }
+      block.c();
+      transition_in(block, 1);
+      block.m(info.mount(), info.anchor);
+      needs_flush = true;
+    }
+    info.block = block;
+    if (info.blocks)
+      info.blocks[index] = block;
+    if (needs_flush) {
+      flush();
+    }
+  }
+  if (is_promise(promise2)) {
+    const current_component2 = get_current_component();
+    promise2.then((value) => {
+      set_current_component(current_component2);
+      update2(info.then, 1, info.value, value);
+      set_current_component(null);
+    }, (error) => {
+      set_current_component(current_component2);
+      update2(info.catch, 2, info.error, error);
+      set_current_component(null);
+      if (!info.hasCatch) {
+        throw error;
+      }
+    });
+    if (info.current !== info.pending) {
+      update2(info.pending, 0);
+      return true;
+    }
+  } else {
+    if (info.current !== info.then) {
+      update2(info.then, 1, info.value, promise2);
+      return true;
+    }
+    info.resolved = promise2;
+  }
+}
+function update_await_block_branch(info, ctx, dirty) {
+  const child_ctx = ctx.slice();
+  const {resolved} = info;
+  if (info.current === info.then) {
+    child_ctx[info.value] = resolved;
+  }
+  if (info.current === info.catch) {
+    child_ctx[info.error] = resolved;
+  }
+  info.block.p(child_ctx, dirty);
 }
 function create_component(block) {
   block && block.c();
@@ -339,4 +428,4 @@ class SvelteComponent {
   }
 }
 
-export { SvelteComponent, append, attr, check_outros, create_component, destroy_component, destroy_each, detach, element, group_outros, init, insert, mount_component, noop, safe_not_equal, set_data, space, text, transition_in, transition_out };
+export { SvelteComponent, append, attr, check_outros, create_component, destroy_component, destroy_each, detach, element, empty, group_outros, handle_promise, init, insert, mount_component, noop, safe_not_equal, set_data, space, text, transition_in, transition_out, update_await_block_branch };
