@@ -9,7 +9,6 @@ import {
 	insert,
 	noop,
 	safe_not_equal,
-	set_style,
 	space
 } from "../../_snowpack/pkg/svelte/internal.js";
 
@@ -22,27 +21,26 @@ function create_fragment(ctx) {
 		c() {
 			div7 = element("div");
 
-			div7.innerHTML = `<div class="avater-container svelte-ir37jh"><div class="avater-container-start svelte-ir37jh"><img src="../assets/gather_fishes_200x200.jpg" srcset="../assets/gather_fishes_200x200.jpg 1x, ../assets/gather_fishes_400x400.jpg 2x" class="avater-icon svelte-ir37jh" alt="yammerjp avater icon" width="200px" height="200px"/></div> 
-    <div class="avater-container-end svelte-ir37jh"><div class="avater-description svelte-ir37jh"><div class="fullname">Keisuke Nakayama</div> 
-        <div class="nickname svelte-ir37jh">yammer</div> 
-        <div class="description svelte-ir37jh"><span class="description-mass svelte-ir37jh">Web Application Developper /</span> 
-          <span class="description-mass svelte-ir37jh">SCUBA Diver</span></div></div></div></div>`;
+			div7.innerHTML = `<div class="avater-container svelte-1td42zl"><div class="avater-container-start svelte-1td42zl"><img src="../assets/gather_fishes_200x200.jpg" srcset="../assets/gather_fishes_200x200.jpg 1x, ../assets/gather_fishes_400x400.jpg 2x" class="avater-icon svelte-1td42zl" alt="yammerjp avater icon" width="200px" height="200px"/></div> 
+    <div class="avater-container-end svelte-1td42zl"><div class="avater-description svelte-1td42zl"><div class="fullname">Keisuke Nakayama</div> 
+        <div class="nickname svelte-1td42zl">yammer</div> 
+        <div class="description svelte-1td42zl"><span class="description-mass svelte-1td42zl">Web Application Developper /</span> 
+          <span class="description-mass svelte-1td42zl">SCUBA Diver</span></div></div></div></div>`;
 
 			t8 = space();
 			div8 = element("div");
 
 			div8.innerHTML = `<svg name="bezier-curve-circle"><clipPath id="bezier-curve-circle" clipPathUnits="objectBoundingBox"><path d="
-M 0 0.5
-C 0 0.166, 0.166 0, 0.5 0
-S 1 0.166, 1 0.5
-S 0.833 1, 0.5 1
-S 0, 0.833, 0, 0.5
-Z
-"></path></clipPath></svg>`;
+             M 0 0.5
+             C 0 0.166, 0.166 0, 0.5 0
+             S 1 0.166, 1 0.5
+             S 0.833 1, 0.5 1
+             S 0, 0.833, 0, 0.5
+             Z
+             "></path></clipPath></svg>`;
 
-			attr(div7, "class", "avater svelte-ir37jh");
-			set_style(div8, "position", "absolute");
-			set_style(div8, "top", "-200px");
+			attr(div7, "class", "avater svelte-1td42zl");
+			attr(div8, "class", "avater-svg-wrapper svelte-1td42zl");
 		},
 		m(target, anchor) {
 			insert(target, div7, anchor);

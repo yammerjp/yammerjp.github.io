@@ -136,9 +136,6 @@ function set_data(text2, data) {
   if (text2.wholeText !== data)
     text2.data = data;
 }
-function set_style(node, key, value, important) {
-  node.style.setProperty(key, value, important ? "important" : "");
-}
 let current_component;
 function set_current_component(component) {
   current_component = component;
@@ -431,4 +428,4 @@ class SvelteComponent {
   }
 }
 
-export { SvelteComponent, append, attr, check_outros, create_component, destroy_component, destroy_each, detach, element, empty, group_outros, handle_promise, init, insert, mount_component, noop, safe_not_equal, set_data, set_style, space, text, transition_in, transition_out, update_await_block_branch };
+export { SvelteComponent, append, attr, check_outros, create_component, destroy_component, destroy_each, detach, element, empty, group_outros, handle_promise, init, insert, mount_component, noop, safe_not_equal, set_data, space, text, transition_in, transition_out, update_await_block_branch };
