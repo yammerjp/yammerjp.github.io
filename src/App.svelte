@@ -3,7 +3,7 @@
   <Links />
   <Feeds />
   <footer>
-    <div>©2020 Keisuke Nakayama</div>
+    <div>©2020-2022 <a href="https://github.com/yammerjp">yammer</a></div>
   </footer>
 </div>
 
