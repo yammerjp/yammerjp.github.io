@@ -45,13 +45,13 @@ function create_each_block(ctx) {
 			span = element("span");
 			t1 = text(t1_value);
 			t2 = space();
-			attr(img, "class", img_class_value = "links-icon " + /*linkItem*/ ctx[1].id + " svelte-1ewgaz2");
+			attr(img, "class", img_class_value = "links-icon " + /*linkItem*/ ctx[1].id + " svelte-3o6qne");
 			if (img.src !== (img_src_value = /*linkItem*/ ctx[1].imgSrc)) attr(img, "src", img_src_value);
 			attr(img, "alt", img_alt_value = "" + (/*linkItem*/ ctx[1].displayTitle + " icon"));
-			attr(span, "class", "title svelte-1ewgaz2");
-			attr(div, "class", "title-wrapper svelte-1ewgaz2");
+			attr(span, "class", "title svelte-3o6qne");
+			attr(div, "class", "title-wrapper svelte-3o6qne");
 			attr(a, "href", a_href_value = /*linkItem*/ ctx[1].url);
-			attr(a, "class", "svelte-1ewgaz2");
+			attr(a, "class", "svelte-3o6qne");
 		},
 		m(target, anchor) {
 			insert(target, a, anchor);
@@ -92,7 +92,7 @@ function create_fragment(ctx) {
 				each_blocks[i].c();
 			}
 
-			attr(div, "class", "links svelte-1ewgaz2");
+			attr(div, "class", "links svelte-3o6qne");
 		},
 		m(target, anchor) {
 			insert(target, h2, anchor);

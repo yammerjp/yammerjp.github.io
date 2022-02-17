@@ -8,29 +8,54 @@ import {
 	init,
 	insert,
 	noop,
-	safe_not_equal
+	safe_not_equal,
+	set_style,
+	space
 } from "../../_snowpack/pkg/svelte/internal.js";
 
 function create_fragment(ctx) {
-	let div1;
+	let div7;
+	let t8;
+	let div8;
 
 	return {
 		c() {
-			div1 = element("div");
+			div7 = element("div");
 
-			div1.innerHTML = `<img alt="yammerjp avater icon" src="../assets/gather_fishes_200x200.jpg" srcset="../assets/gather_fishes_200x200.jpg 1x, ../assets/gather_fishes_400x400.jpg 2x" class="avater-icon svelte-1dxbb3t" width="200px" height="200px"/> 
-  <div>Keisuke Nakayama</div>`;
+			div7.innerHTML = `<div class="avater-container svelte-ir37jh"><div class="avater-container-start svelte-ir37jh"><img src="../assets/gather_fishes_200x200.jpg" srcset="../assets/gather_fishes_200x200.jpg 1x, ../assets/gather_fishes_400x400.jpg 2x" class="avater-icon svelte-ir37jh" alt="yammerjp avater icon" width="200px" height="200px"/></div> 
+    <div class="avater-container-end svelte-ir37jh"><div class="avater-description svelte-ir37jh"><div class="fullname">Keisuke Nakayama</div> 
+        <div class="nickname svelte-ir37jh">yammer</div> 
+        <div class="description svelte-ir37jh"><span class="description-mass svelte-ir37jh">Web Application Developper /</span> 
+          <span class="description-mass svelte-ir37jh">SCUBA Diver</span></div></div></div></div>`;
 
-			attr(div1, "class", "avater svelte-1dxbb3t");
+			t8 = space();
+			div8 = element("div");
+
+			div8.innerHTML = `<svg name="bezier-curve-circle"><clipPath id="bezier-curve-circle" clipPathUnits="objectBoundingBox"><path d="
+M 0 0.5
+C 0 0.166, 0.166 0, 0.5 0
+S 1 0.166, 1 0.5
+S 0.833 1, 0.5 1
+S 0, 0.833, 0, 0.5
+Z
+"></path></clipPath></svg>`;
+
+			attr(div7, "class", "avater svelte-ir37jh");
+			set_style(div8, "position", "absolute");
+			set_style(div8, "top", "-200px");
 		},
 		m(target, anchor) {
-			insert(target, div1, anchor);
+			insert(target, div7, anchor);
+			insert(target, t8, anchor);
+			insert(target, div8, anchor);
 		},
 		p: noop,
 		i: noop,
 		o: noop,
 		d(detaching) {
-			if (detaching) detach(div1);
+			if (detaching) detach(div7);
+			if (detaching) detach(t8);
+			if (detaching) detach(div8);
 		}
 	};
 }
