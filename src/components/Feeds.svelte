@@ -39,6 +39,6 @@ async function fetchFeeds(json_feed_url: string): Promise<FeedType[]> {
   margin-top: 5px;
 }
 .feeds-title {
-  padding: 8px;
+  padding: 0 8px;
 }
 </style>

@@ -1,4 +1,4 @@
-<h2>Links</h2>
+<h2 class="links-title">Links</h2>
 <div class="links">
   {#each linkItems as linkItem}
     <!-- <div class="link-item"> -->
@@ -53,6 +53,10 @@
 </script>
 
 <style>
+.links-title {
+  padding: 0 8px;
+}
+
 .links {
   margin-top: 5px;
   width: 100%;

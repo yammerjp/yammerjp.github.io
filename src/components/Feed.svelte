@@ -33,9 +33,9 @@ function description() {
 </script>
 
 
-<a href="{feed.link}" class="feed-wrapper-link">
+<a href="{feed.link}" class="feed-wrapper-link {index === 0 ? 'is-first': ''}">
 <div class="feed">
-  <h3 class="title {index === 0 ? 'isFirst': ''}">{feed.title}</h3>
+  <h3 class="title">{feed.title}</h3>
   <div class="date_and_site">{ date() } - { site() }</div>
   <div class="description">{ description() }</div>
   <!--
@@ -56,10 +56,10 @@ a {
 }
 .feed-wrapper-link {
   display: block;
-  margin-top: 30px;
+  margin-top: 32px;
 }
-.feed-wrapper-link:first-child {
-  margin-top: 0px;
+.feed-wrapper-link.is-first {
+  margin-top: 24px;
 }
 
 .feed .description {
