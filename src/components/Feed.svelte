@@ -33,7 +33,7 @@ function description() {
 </script>
 
 
-<a href="{feed.link}">
+<a href="{feed.link}" class="feed-wrapper-link">
 <div class="feed">
   <h3 class="title {index === 0 ? 'isFirst': ''}">{feed.title}</h3>
   <div class="date_and_site">{ date() } - { site() }</div>
@@ -52,6 +52,14 @@ a {
 }
 .feed {
   text-align: left;
+  padding: 8px;
+}
+.feed-wrapper-link {
+  display: block;
+  margin-top: 30px;
+}
+.feed-wrapper-link:first-child {
+  margin-top: 0px;
 }
 
 .feed .description {
@@ -73,11 +81,16 @@ a {
   text-decoration: underline;
   margin-bottom: 0;
   font-weight: normal;
+  margin-top: 0px;
+  /*
   margin-top: 30px;
+  */
 }
+/*
 .feed h3.isFirst {
   margin-top: 0px;
 }
+*/
 
 .feed:hover {
   background: #f8f8f8;

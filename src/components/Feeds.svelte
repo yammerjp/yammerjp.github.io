@@ -1,5 +1,5 @@
 <div class="feeds">
-  <h2 v-if="feeds.length !== 0">Posts</h2>
+  <h2 v-if="feeds.length !== 0" class="feeds-title">Posts</h2>
   {#await fetchFeeds('https://rsss.yammer.jp/v0/json_feed')}
     <p>...waiting</p>
   {:then feeds}
@@ -37,5 +37,8 @@ async function fetchFeeds(json_feed_url: string): Promise<FeedType[]> {
 <style>
 .feeds {
   margin-top: 5px;
+}
+.feeds-title {
+  padding: 8px;
 }
 </style>

@@ -67,7 +67,8 @@
   display: block;
   flex-grow: 1;
   flex: 1;
-  margin: 8px 0px;
+  margin: 8px 0;
+  padding: 0 8px;
 }
 
 .links-icon {

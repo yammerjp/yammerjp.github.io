@@ -24,6 +24,12 @@ import Links from './components/Links.svelte'
   text-align: left;
   max-width: 800px;
   margin: 0 auto;
+  padding: 16px;
+}
+
+:global(body) {
+  padding: 0;
+  margin: 0;
 }
 
 :global(html) {
