@@ -23,19 +23,19 @@
   </div>
 </div>
 
-<div style="position: absolute; top: -200px;">
-<svg name="bezier-curve-circle">
-<clipPath id="bezier-curve-circle" clipPathUnits="objectBoundingBox">
-<path d="
-M 0 0.5
-C 0 0.166, 0.166 0, 0.5 0
-S 1 0.166, 1 0.5
-S 0.833 1, 0.5 1
-S 0, 0.833, 0, 0.5
-Z
-"/>
-</clipPath>
-</svg>
+<div class="avater-svg-wrapper">
+  <svg name="bezier-curve-circle">
+    <clipPath id="bezier-curve-circle" clipPathUnits="objectBoundingBox">
+    <path d="
+             M 0 0.5
+             C 0 0.166, 0.166 0, 0.5 0
+             S 1 0.166, 1 0.5
+             S 0.833 1, 0.5 1
+             S 0, 0.833, 0, 0.5
+             Z
+             "/>
+    </clipPath>
+  </svg>
 </div>
 
 <style>
@@ -98,5 +98,10 @@ Z
   display: flex;
   flex-flow: column;
   justify-content: space-between;
+}
+
+.avater-svg-wrapper {
+  position: absolute;
+  top: -200px;
 }
 </style>
