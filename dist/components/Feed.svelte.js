@@ -21,12 +21,12 @@ function create_fragment(ctx) {
 	let h3;
 	let t0_value = /*feed*/ ctx[0].title + "";
 	let t0;
-	let h3_class_value;
 	let t1;
 	let div0;
 	let t5;
 	let div1;
 	let a_href_value;
+	let a_class_value;
 
 	return {
 		c() {
@@ -40,12 +40,12 @@ function create_fragment(ctx) {
 			t5 = space();
 			div1 = element("div");
 			div1.textContent = `${/*description*/ ctx[4]()}`;
-			attr(h3, "class", h3_class_value = "title " + (/*index*/ ctx[1] === 0 ? "isFirst" : "") + " svelte-1mrfwgc");
-			attr(div0, "class", "date_and_site svelte-1mrfwgc");
-			attr(div1, "class", "description svelte-1mrfwgc");
-			attr(div2, "class", "feed svelte-1mrfwgc");
+			attr(h3, "class", "title svelte-1psqo5a");
+			attr(div0, "class", "date_and_site svelte-1psqo5a");
+			attr(div1, "class", "description svelte-1psqo5a");
+			attr(div2, "class", "feed svelte-1psqo5a");
 			attr(a, "href", a_href_value = /*feed*/ ctx[0].link);
-			attr(a, "class", "feed-wrapper-link svelte-1mrfwgc");
+			attr(a, "class", a_class_value = "feed-wrapper-link " + (/*index*/ ctx[1] === 0 ? "is-first" : "") + " svelte-1psqo5a");
 		},
 		m(target, anchor) {
 			insert(target, a, anchor);
@@ -60,12 +60,12 @@ function create_fragment(ctx) {
 		p(ctx, [dirty]) {
 			if (dirty & /*feed*/ 1 && t0_value !== (t0_value = /*feed*/ ctx[0].title + "")) set_data(t0, t0_value);
 
-			if (dirty & /*index*/ 2 && h3_class_value !== (h3_class_value = "title " + (/*index*/ ctx[1] === 0 ? "isFirst" : "") + " svelte-1mrfwgc")) {
-				attr(h3, "class", h3_class_value);
-			}
-
 			if (dirty & /*feed*/ 1 && a_href_value !== (a_href_value = /*feed*/ ctx[0].link)) {
 				attr(a, "href", a_href_value);
+			}
+
+			if (dirty & /*index*/ 2 && a_class_value !== (a_class_value = "feed-wrapper-link " + (/*index*/ ctx[1] === 0 ? "is-first" : "") + " svelte-1psqo5a")) {
+				attr(a, "class", a_class_value);
 			}
 		},
 		i: noop,

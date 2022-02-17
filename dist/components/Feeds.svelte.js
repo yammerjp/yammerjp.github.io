@@ -225,8 +225,8 @@ function create_fragment(ctx) {
 			t1 = space();
 			info.block.c();
 			attr(h2, "v-if", "feeds.length !== 0");
-			attr(h2, "class", "feeds-title svelte-1f2ryb4");
-			attr(div, "class", "feeds svelte-1f2ryb4");
+			attr(h2, "class", "feeds-title svelte-1jkn800");
+			attr(div, "class", "feeds svelte-1jkn800");
 		},
 		m(target, anchor) {
 			insert(target, div, anchor);
