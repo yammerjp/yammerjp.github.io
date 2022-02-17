@@ -1,6 +1,5 @@
 <div id="app">
   <Avater />
-  <AboutMe />
   <Links />
   <Feeds />
   <footer>
@@ -11,7 +10,6 @@
 <script>
 import Avater from './components/Avater.svelte';
 import Feeds from './components/Feeds.svelte';
-import AboutMe from './components/AboutMe.svelte';
 import Links from './components/Links.svelte'
 
 </script>
