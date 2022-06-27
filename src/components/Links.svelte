@@ -1,4 +1,3 @@
-<h2 class="links-title">Links</h2>
 <div class="links">
   {#each linkItems as linkItem}
     <!-- <div class="link-item"> -->
@@ -53,14 +52,9 @@
 </script>
 
 <style>
-.links-title {
-  padding: 0 8px;
-}
-
 .links {
-  margin-top: 5px;
   width: 100%;
-  margin-top: 16px;
+  margin-top: 48px;
   text-align: center;
   display: inline-flex;
   justify-content: space-between;
@@ -76,8 +70,8 @@
 }
 
 .links-icon {
-  width: 64px;
-  height: 64px;
+  width: min(64px, 12vw);
+  height: min(64px, 12vw);
   border-radius: 8px;
 }
 .links-icon {

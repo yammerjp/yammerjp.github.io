@@ -1,5 +1,4 @@
 <div class="feeds">
-  <h2 v-if="feeds.length !== 0" class="feeds-title">Posts</h2>
   {#await fetchFeeds('https://rsss.yammer.jp/v0/json_feed')}
     <p>...waiting</p>
   {:then feeds}
