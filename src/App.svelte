@@ -1,7 +1,7 @@
 <div id="app">
   <Avater />
   <Links />
-  <Feeds />
+  <Tabs />
   <footer>
     <div>©2020-2022 <a href="https://github.com/yammerjp">yammer</a></div>
   </footer>
@@ -9,7 +9,7 @@
 
 <script>
 import Avater from './components/Avater.svelte';
-import Feeds from './components/Feeds.svelte';
+import Tabs from './components/Tabs.svelte';
 import Links from './components/Links.svelte'
 
 </script>
