@@ -23,6 +23,14 @@ function is_function(thing) {
 function safe_not_equal(a, b) {
   return a != a ? b == b : a !== b || (a && typeof a === "object" || typeof a === "function");
 }
+let src_url_equal_anchor;
+function src_url_equal(element_src, url) {
+  if (!src_url_equal_anchor) {
+    src_url_equal_anchor = document.createElement("a");
+  }
+  src_url_equal_anchor.href = url;
+  return element_src === src_url_equal_anchor.href;
+}
 function is_empty(obj) {
   return Object.keys(obj).length === 0;
 }
@@ -53,92 +61,28 @@ function get_slot_changes(definition, $$scope, dirty, fn) {
   }
   return $$scope.dirty;
 }
-function update_slot(slot, slot_definition, ctx, $$scope, dirty, get_slot_changes_fn, get_slot_context_fn) {
-  const slot_changes = get_slot_changes(slot_definition, $$scope, dirty, get_slot_changes_fn);
+function update_slot_base(slot, slot_definition, ctx, $$scope, slot_changes, get_slot_context_fn) {
   if (slot_changes) {
     const slot_context = get_slot_context(slot_definition, ctx, $$scope, get_slot_context_fn);
     slot.p(slot_context, slot_changes);
   }
 }
-let is_hydrating = false;
-function start_hydrating() {
-  is_hydrating = true;
-}
-function end_hydrating() {
-  is_hydrating = false;
-}
-function upper_bound(low, high, key, value) {
-  while (low < high) {
-    const mid = low + (high - low >> 1);
-    if (key(mid) <= value) {
-      low = mid + 1;
-    } else {
-      high = mid;
+function get_all_dirty_from_scope($$scope) {
+  if ($$scope.ctx.length > 32) {
+    const dirty = [];
+    const length = $$scope.ctx.length / 32;
+    for (let i = 0; i < length; i++) {
+      dirty[i] = -1;
     }
+    return dirty;
   }
-  return low;
-}
-function init_hydrate(target) {
-  if (target.hydrate_init)
-    return;
-  target.hydrate_init = true;
-  const children2 = target.childNodes;
-  const m = new Int32Array(children2.length + 1);
-  const p = new Int32Array(children2.length);
-  m[0] = -1;
-  let longest = 0;
-  for (let i = 0; i < children2.length; i++) {
-    const current = children2[i].claim_order;
-    const seqLen = upper_bound(1, longest + 1, (idx) => children2[m[idx]].claim_order, current) - 1;
-    p[i] = m[seqLen] + 1;
-    const newLen = seqLen + 1;
-    m[newLen] = i;
-    longest = Math.max(newLen, longest);
-  }
-  const lis = [];
-  const toMove = [];
-  let last = children2.length - 1;
-  for (let cur = m[longest] + 1; cur != 0; cur = p[cur - 1]) {
-    lis.push(children2[cur - 1]);
-    for (; last >= cur; last--) {
-      toMove.push(children2[last]);
-    }
-    last--;
-  }
-  for (; last >= 0; last--) {
-    toMove.push(children2[last]);
-  }
-  lis.reverse();
-  toMove.sort((a, b) => a.claim_order - b.claim_order);
-  for (let i = 0, j = 0; i < toMove.length; i++) {
-    while (j < lis.length && toMove[i].claim_order >= lis[j].claim_order) {
-      j++;
-    }
-    const anchor = j < lis.length ? lis[j] : null;
-    target.insertBefore(toMove[i], anchor);
-  }
+  return -1;
 }
 function append(target, node) {
-  if (is_hydrating) {
-    init_hydrate(target);
-    if (target.actual_end_child === void 0 || target.actual_end_child !== null && target.actual_end_child.parentElement !== target) {
-      target.actual_end_child = target.firstChild;
-    }
-    if (node !== target.actual_end_child) {
-      target.insertBefore(node, target.actual_end_child);
-    } else {
-      target.actual_end_child = node.nextSibling;
-    }
-  } else if (node.parentNode !== target) {
-    target.appendChild(node);
-  }
+  target.appendChild(node);
 }
 function insert(target, node, anchor) {
-  if (is_hydrating && !anchor) {
-    append(target, node);
-  } else if (node.parentNode !== target || anchor && node.nextSibling !== anchor) {
-    target.insertBefore(node, anchor || null);
-  }
+  target.insertBefore(node, anchor || null);
 }
 function detach(node) {
   node.parentNode.removeChild(node);
@@ -203,20 +147,20 @@ function schedule_update() {
 function add_render_callback(fn) {
   render_callbacks.push(fn);
 }
-let flushing = false;
 const seen_callbacks = new Set();
+let flushidx = 0;
 function flush() {
-  if (flushing)
-    return;
-  flushing = true;
+  const saved_component = current_component;
   do {
-    for (let i = 0; i < dirty_components.length; i += 1) {
-      const component = dirty_components[i];
+    while (flushidx < dirty_components.length) {
+      const component = dirty_components[flushidx];
+      flushidx++;
       set_current_component(component);
       update(component.$$);
     }
     set_current_component(null);
     dirty_components.length = 0;
+    flushidx = 0;
     while (binding_callbacks.length)
       binding_callbacks.pop()();
     for (let i = 0; i < render_callbacks.length; i += 1) {
@@ -232,8 +176,8 @@ function flush() {
     flush_callbacks.pop()();
   }
   update_scheduled = false;
-  flushing = false;
   seen_callbacks.clear();
+  set_current_component(saved_component);
 }
 function update($$) {
   if ($$.fragment !== null) {
@@ -396,7 +340,7 @@ function make_dirty(component, i) {
   }
   component.$$.dirty[i / 31 | 0] |= 1 << i % 31;
 }
-function init(component, options, instance, create_fragment, not_equal2, props, dirty = [-1]) {
+function init(component, options, instance, create_fragment, not_equal2, props, append_styles2, dirty = [-1]) {
   const parent_component = current_component;
   set_current_component(component);
   const $$ = component.$$ = {
@@ -411,11 +355,13 @@ function init(component, options, instance, create_fragment, not_equal2, props, 
     on_disconnect: [],
     before_update: [],
     after_update: [],
-    context: new Map(parent_component ? parent_component.$$.context : options.context || []),
+    context: new Map(options.context || (parent_component ? parent_component.$$.context : [])),
     callbacks: blank_object(),
     dirty,
-    skip_bound: false
+    skip_bound: false,
+    root: options.target || parent_component.$$.root
   };
+  append_styles2 && append_styles2($$.root);
   let ready = false;
   $$.ctx = instance ? instance(component, options.props || {}, (i, ret, ...rest) => {
     const value = rest.length ? rest[0] : ret;
@@ -433,7 +379,6 @@ function init(component, options, instance, create_fragment, not_equal2, props, 
   $$.fragment = create_fragment ? create_fragment($$.ctx) : false;
   if (options.target) {
     if (options.hydrate) {
-      start_hydrating();
       const nodes = children(options.target);
       $$.fragment && $$.fragment.l(nodes);
       nodes.forEach(detach);
@@ -443,7 +388,6 @@ function init(component, options, instance, create_fragment, not_equal2, props, 
     if (options.intro)
       transition_in(component.$$.fragment);
     mount_component(component, options.target, options.anchor, options.customElement);
-    end_hydrating();
     flush();
   }
   set_current_component(parent_component);
@@ -471,4 +415,4 @@ class SvelteComponent {
   }
 }
 
-export { SvelteComponent, append, attr, check_outros, create_component, create_slot, destroy_component, destroy_each, detach, element, empty, group_outros, handle_promise, init, insert, listen, mount_component, noop, run_all, safe_not_equal, set_data, space, text, transition_in, transition_out, update_await_block_branch, update_slot };
+export { SvelteComponent, append, attr, check_outros, create_component, create_slot, destroy_component, destroy_each, detach, element, empty, get_all_dirty_from_scope, get_slot_changes, group_outros, handle_promise, init, insert, listen, mount_component, noop, run_all, safe_not_equal, set_data, space, src_url_equal, text, transition_in, transition_out, update_await_block_branch, update_slot_base };
