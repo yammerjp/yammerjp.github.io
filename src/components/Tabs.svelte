@@ -35,7 +35,7 @@
   </div>
 </div>
 
-<script>
+<script lang="ts">
 import Feeds from './Feeds.svelte';
 import MicroBlogFeeds from './MicroBlogFeeds.svelte'
 import Slides from './Slides.svelte'

@@ -9,7 +9,7 @@
   {/each}
 </div>
 
-<script>
+<script lang="ts">
   type LinkItem = {
     id: string;
     displayTitle: string;

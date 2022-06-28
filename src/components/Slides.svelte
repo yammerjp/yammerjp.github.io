@@ -17,7 +17,7 @@
   </Card>
 </div>
 
-<script lang="typescript">
+<script lang="ts">
 import Card from './Card.svelte';
 
 </script>
@@ -25,8 +25,5 @@ import Card from './Card.svelte';
 <style>
 .slides {
   margin-top: 5px;
-}
-.feeds-title {
-  padding: 0 8px;
 }
 </style>

@@ -7,7 +7,7 @@
   </footer>
 </div>
 
-<script>
+<script lang="ts">
 import Avater from './components/Avater.svelte';
 import Tabs from './components/Tabs.svelte';
 import Links from './components/Links.svelte'

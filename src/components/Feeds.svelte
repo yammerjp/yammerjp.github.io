@@ -11,7 +11,7 @@
 
 </div>
 
-<script lang="typescript">
+<script lang="ts">
 import CardWithDescription from './CardWithDescription.svelte';
 
 function siteName(url: string): string {

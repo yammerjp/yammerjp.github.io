@@ -1,4 +1,4 @@
-<script lang="typescript">
+<script lang="ts">
 import Card from './Card.svelte'
 export let card: CardType
 export let isFirst: boolean

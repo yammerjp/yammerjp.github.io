@@ -10,7 +10,7 @@
   {/await}
 </div>
 
-<script lang="typescript">
+<script lang="ts">
 import CardWithDescription from './CardWithDescription.svelte';
 
 async function fetchFeeds(json_feed_url: string): Promise<CardType[]> {

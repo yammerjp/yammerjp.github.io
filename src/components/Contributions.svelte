@@ -12,7 +12,7 @@
   </Card>
 </div>
 
-<script lang="typescript">
+<script lang="ts">
 import Card from './Card.svelte';
 
 </script>
