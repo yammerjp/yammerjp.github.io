@@ -3,7 +3,7 @@
     <p>...waiting</p>
   {:then feeds}
     {#each feeds as feed, i}
-      <Feed feed={feed} index={i} />
+      <CardWithDescription card={feed} isFirst={i === 0} />
     {/each}
   {:catch error}
     <p>failed to fetch feeds...</p>
@@ -12,32 +12,41 @@
 </div>
 
 <script lang="typescript">
-import Feed from './Feed.svelte';
+import CardWithDescription from './CardWithDescription.svelte';
 
-async function fetchFeeds(json_feed_url: string): Promise<FeedType[]> {
+function siteName(url: string): string {
+  if (/^https:\/\/memo\.yammer\.jp/.test(url)) {
+    return 'memo.yammer.jp';
+  }
+  if (/^https:\/\/basd4g\.hatenablog\.com/.test(url)) {
+    return 'はてなブログ';
+  }
+  if (/^https:\/\/qiita\.com\/yammerjp/.test(url)) {
+    return 'Qiita';
+  }
+  return url;
+}
+
+async function fetchFeeds(json_feed_url: string): Promise<CardType[]> {
   const response = await fetch(json_feed_url)
   const responseJson = await response.json()
     console.log(responseJson)
+
   const feeds = (responseJson?.items as any[]).map((item: any) => {
     return {
       title: item.title,
-      link: item.url,
-      content: item.summary,
-      contentSnippet: item.summary,
-      guid: item.id,
+      url: item.url,
+      description: item.summary,
+      id: item.id,
       isoDate: item.date_published,
     }
   })
-  return feeds as FeedType[]
+  return feeds as CardType[]
 }
 
 </script>
-
 <style>
 .feeds {
   margin-top: 5px;
-}
-.feeds-title {
-  padding: 0 8px;
 }
 </style>
