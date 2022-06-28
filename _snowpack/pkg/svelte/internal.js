@@ -1,5 +1,10 @@
 function noop() {
 }
+function assign(tar, src) {
+  for (const k in src)
+    tar[k] = src[k];
+  return tar;
+}
 function is_promise(value) {
   return value && typeof value === "object" && typeof value.then === "function";
 }
@@ -20,6 +25,40 @@ function safe_not_equal(a, b) {
 }
 function is_empty(obj) {
   return Object.keys(obj).length === 0;
+}
+function create_slot(definition, ctx, $$scope, fn) {
+  if (definition) {
+    const slot_ctx = get_slot_context(definition, ctx, $$scope, fn);
+    return definition[0](slot_ctx);
+  }
+}
+function get_slot_context(definition, ctx, $$scope, fn) {
+  return definition[1] && fn ? assign($$scope.ctx.slice(), definition[1](fn(ctx))) : $$scope.ctx;
+}
+function get_slot_changes(definition, $$scope, dirty, fn) {
+  if (definition[2] && fn) {
+    const lets = definition[2](fn(dirty));
+    if ($$scope.dirty === void 0) {
+      return lets;
+    }
+    if (typeof lets === "object") {
+      const merged = [];
+      const len = Math.max($$scope.dirty.length, lets.length);
+      for (let i = 0; i < len; i += 1) {
+        merged[i] = $$scope.dirty[i] | lets[i];
+      }
+      return merged;
+    }
+    return $$scope.dirty | lets;
+  }
+  return $$scope.dirty;
+}
+function update_slot(slot, slot_definition, ctx, $$scope, dirty, get_slot_changes_fn, get_slot_context_fn) {
+  const slot_changes = get_slot_changes(slot_definition, $$scope, dirty, get_slot_changes_fn);
+  if (slot_changes) {
+    const slot_context = get_slot_context(slot_definition, ctx, $$scope, get_slot_context_fn);
+    slot.p(slot_context, slot_changes);
+  }
 }
 let is_hydrating = false;
 function start_hydrating() {
@@ -121,6 +160,10 @@ function space() {
 }
 function empty() {
   return text("");
+}
+function listen(node, event, handler, options) {
+  node.addEventListener(event, handler, options);
+  return () => node.removeEventListener(event, handler, options);
 }
 function attr(node, attribute, value) {
   if (value == null)
@@ -428,4 +471,4 @@ class SvelteComponent {
   }
 }
 
-export { SvelteComponent, append, attr, check_outros, create_component, destroy_component, destroy_each, detach, element, empty, group_outros, handle_promise, init, insert, mount_component, noop, safe_not_equal, set_data, space, text, transition_in, transition_out, update_await_block_branch };
+export { SvelteComponent, append, attr, check_outros, create_component, create_slot, destroy_component, destroy_each, detach, element, empty, group_outros, handle_promise, init, insert, listen, mount_component, noop, run_all, safe_not_equal, set_data, space, text, transition_in, transition_out, update_await_block_branch, update_slot };

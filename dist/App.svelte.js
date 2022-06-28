@@ -19,7 +19,7 @@ import {
 } from "../_snowpack/pkg/svelte/internal.js";
 
 import Avater from "./components/Avater.svelte.js";
-import Feeds from "./components/Feeds.svelte.js";
+import Tabs from "./components/Tabs.svelte.js";
 import Links from "./components/Links.svelte.js";
 
 function create_fragment(ctx) {
@@ -28,13 +28,13 @@ function create_fragment(ctx) {
 	let t0;
 	let links;
 	let t1;
-	let feeds;
+	let tabs;
 	let t2;
 	let footer;
 	let current;
 	avater = new Avater({});
 	links = new Links({});
-	feeds = new Feeds({});
+	tabs = new Tabs({});
 
 	return {
 		c() {
@@ -43,13 +43,13 @@ function create_fragment(ctx) {
 			t0 = space();
 			create_component(links.$$.fragment);
 			t1 = space();
-			create_component(feeds.$$.fragment);
+			create_component(tabs.$$.fragment);
 			t2 = space();
 			footer = element("footer");
 			footer.innerHTML = `<div>©2020-2022 <a href="https://github.com/yammerjp">yammer</a></div>`;
-			attr(footer, "class", "svelte-1onlo21");
+			attr(footer, "class", "svelte-1oif8e0");
 			attr(div1, "id", "app");
-			attr(div1, "class", "svelte-1onlo21");
+			attr(div1, "class", "svelte-1oif8e0");
 		},
 		m(target, anchor) {
 			insert(target, div1, anchor);
@@ -57,7 +57,7 @@ function create_fragment(ctx) {
 			append(div1, t0);
 			mount_component(links, div1, null);
 			append(div1, t1);
-			mount_component(feeds, div1, null);
+			mount_component(tabs, div1, null);
 			append(div1, t2);
 			append(div1, footer);
 			current = true;
@@ -67,20 +67,20 @@ function create_fragment(ctx) {
 			if (current) return;
 			transition_in(avater.$$.fragment, local);
 			transition_in(links.$$.fragment, local);
-			transition_in(feeds.$$.fragment, local);
+			transition_in(tabs.$$.fragment, local);
 			current = true;
 		},
 		o(local) {
 			transition_out(avater.$$.fragment, local);
 			transition_out(links.$$.fragment, local);
-			transition_out(feeds.$$.fragment, local);
+			transition_out(tabs.$$.fragment, local);
 			current = false;
 		},
 		d(detaching) {
 			if (detaching) detach(div1);
 			destroy_component(avater);
 			destroy_component(links);
-			destroy_component(feeds);
+			destroy_component(tabs);
 		}
 	};
 }

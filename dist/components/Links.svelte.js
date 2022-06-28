@@ -21,7 +21,7 @@ function get_each_context(ctx, list, i) {
 	return child_ctx;
 }
 
-// (3:2) {#each linkItems as linkItem}
+// (2:2) {#each linkItems as linkItem}
 function create_each_block(ctx) {
 	let a;
 	let img;
@@ -45,13 +45,13 @@ function create_each_block(ctx) {
 			span = element("span");
 			t1 = text(t1_value);
 			t2 = space();
-			attr(img, "class", img_class_value = "links-icon " + /*linkItem*/ ctx[1].id + " svelte-1x57zy2");
+			attr(img, "class", img_class_value = "links-icon " + /*linkItem*/ ctx[1].id + " svelte-10jo205");
 			if (img.src !== (img_src_value = /*linkItem*/ ctx[1].imgSrc)) attr(img, "src", img_src_value);
 			attr(img, "alt", img_alt_value = "" + (/*linkItem*/ ctx[1].displayTitle + " icon"));
-			attr(span, "class", "title svelte-1x57zy2");
-			attr(div, "class", "title-wrapper svelte-1x57zy2");
+			attr(span, "class", "title svelte-10jo205");
+			attr(div, "class", "title-wrapper svelte-10jo205");
 			attr(a, "href", a_href_value = /*linkItem*/ ctx[1].url);
-			attr(a, "class", "svelte-1x57zy2");
+			attr(a, "class", "svelte-10jo205");
 		},
 		m(target, anchor) {
 			insert(target, a, anchor);
@@ -71,8 +71,6 @@ function create_each_block(ctx) {
 }
 
 function create_fragment(ctx) {
-	let h2;
-	let t1;
 	let div;
 	let each_value = /*linkItems*/ ctx[0];
 	let each_blocks = [];
@@ -83,21 +81,15 @@ function create_fragment(ctx) {
 
 	return {
 		c() {
-			h2 = element("h2");
-			h2.textContent = "Links";
-			t1 = space();
 			div = element("div");
 
 			for (let i = 0; i < each_blocks.length; i += 1) {
 				each_blocks[i].c();
 			}
 
-			attr(h2, "class", "links-title svelte-1x57zy2");
-			attr(div, "class", "links svelte-1x57zy2");
+			attr(div, "class", "links svelte-10jo205");
 		},
 		m(target, anchor) {
-			insert(target, h2, anchor);
-			insert(target, t1, anchor);
 			insert(target, div, anchor);
 
 			for (let i = 0; i < each_blocks.length; i += 1) {
@@ -131,8 +123,6 @@ function create_fragment(ctx) {
 		i: noop,
 		o: noop,
 		d(detaching) {
-			if (detaching) detach(h2);
-			if (detaching) detach(t1);
 			if (detaching) detach(div);
 			destroy_each(each_blocks, detaching);
 		}
