@@ -21,11 +21,11 @@ async function fetchFeeds(json_feed_url: string): Promise<CardType[]> {
     const responseJson = await response.json()
     cards.push(...(responseJson?.items as any[]).map((item: any) => {
       return {
-        url: 'https://microblog.yammer.jp',
         description: item.content_text,
         id: item.id,
         isoDate: item.date_published,
-        siteName: 'microblog'
+        siteName: 'microblog',
+        url: item.url
       }
     }))
     if (responseJson.next_url) {
