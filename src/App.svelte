@@ -44,6 +44,7 @@ import Links from './components/Links.svelte'
 }
 footer {
   margin-top: 50px;
+  padding: 0 16px;
   color: #777777;
 }
 :global(h2) {
