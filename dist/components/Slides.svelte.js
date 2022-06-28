@@ -111,7 +111,7 @@ function create_fragment(ctx) {
 			create_component(card0.$$.fragment);
 			t = space();
 			create_component(card1.$$.fragment);
-			attr(div, "class", "slides svelte-1h4e7l7");
+			attr(div, "class", "slides svelte-1451ryz");
 		},
 		m(target, anchor) {
 			insert(target, div, anchor);

@@ -264,11 +264,11 @@ async function fetchFeeds(json_feed_url) {
 		? void 0
 		: responseJson.items).map(item => {
 			return {
-				url: 'https://microblog.yammer.jp',
 				description: item.content_text,
 				id: item.id,
 				isoDate: item.date_published,
-				siteName: 'microblog'
+				siteName: 'microblog',
+				url: item.url
 			};
 		}));
 
