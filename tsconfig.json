@@ -24,5 +24,8 @@
     "useDefineForClassFields": true,
     "allowSyntheticDefaultImports": true,
     "importsNotUsedAsValues": "error"
-  }
+  },
+  "files": [
+    "node_modules/typescript/lib/lib.d.ts",
+  ]
 }

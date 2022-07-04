@@ -21,13 +21,13 @@
       <Feeds />
     {/if}
     {#if tabName === '発表'}
-      <Slides />
+      <JsonFeedItemCards items={slides} />
     {/if}
     {#if tabName === '寄稿'}
-      <Contributions />
+      <JsonFeedItemCards items={contributions} />
     {/if}
     {#if tabName === '関連'}
-      <RelatedWorks />
+      <JsonFeedItemCards items={relatedArticles} />
     {/if}
     {#if tabName === '近況'}
       <MicroBlogFeeds />
@@ -38,9 +38,10 @@
 <script lang="ts">
 import Feeds from './Feeds.svelte';
 import MicroBlogFeeds from './MicroBlogFeeds.svelte'
-import Slides from './Slides.svelte'
-import Contributions from './Contributions.svelte'
-import RelatedWorks from './RelatedWorks.svelte'
+import JsonFeedItemCards from './JsonFeedItemCards.svelte';
+import slides from '../feeds/slides.json'
+import contributions from '../feeds/contributions.json'
+import relatedArticles from '../feeds/related-articles.json'
 
 let tabName = '投稿'
 
