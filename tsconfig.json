@@ -3,8 +3,7 @@
   "include": ["src", "types"],
   "compilerOptions": {
     "module": "esnext",
-    "target": "es2018",
-    "lib": ["es2018", "dom"],
+    "target": "ES2018",
     "moduleResolution": "node",
     "jsx": "preserve",
     "baseUrl": "./",
@@ -26,9 +25,5 @@
     "useDefineForClassFields": true,
     "allowSyntheticDefaultImports": true,
     "importsNotUsedAsValues": "error"
-  },
-  "files": [
-    "node_modules/typescript/lib/lib.d.ts",
-    "node_modules/typescript/lib/lib.es2020.symbol.wellknown.d.ts"
-  ]
+  }
 }
