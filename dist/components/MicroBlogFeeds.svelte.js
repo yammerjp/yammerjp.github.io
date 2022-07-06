@@ -3,14 +3,10 @@ import './MicroBlogFeeds.svelte.css.proxy.js';
 import {
 	SvelteComponent,
 	attr,
-	check_outros,
 	create_component,
 	destroy_component,
-	destroy_each,
 	detach,
 	element,
-	empty,
-	group_outros,
 	handle_promise,
 	init,
 	insert,
@@ -22,16 +18,9 @@ import {
 	update_await_block_branch
 } from "../../_snowpack/pkg/svelte/internal.js";
 
-import CardWithDescription from './CardWithDescription.svelte.js';
+import JsonFeedItemCards from './JsonFeedItemCards.svelte.js';
+import { fetchFeeds } from '../feeds/microblog-feeds.js';
 
-function get_each_context(ctx, list, i) {
-	const child_ctx = ctx.slice();
-	child_ctx[1] = list[i];
-	child_ctx[3] = i;
-	return child_ctx;
-}
-
-// (8:2) {:catch error}
 function create_catch_block(ctx) {
 	let p;
 
@@ -52,127 +41,37 @@ function create_catch_block(ctx) {
 	};
 }
 
-// (4:2) {:then cards}
+// (4:2) {:then items}
 function create_then_block(ctx) {
-	let each_1_anchor;
+	let jsonfeeditemcards;
 	let current;
-	let each_value = /*cards*/ ctx[0];
-	let each_blocks = [];
-
-	for (let i = 0; i < each_value.length; i += 1) {
-		each_blocks[i] = create_each_block(get_each_context(ctx, each_value, i));
-	}
-
-	const out = i => transition_out(each_blocks[i], 1, 1, () => {
-		each_blocks[i] = null;
-	});
+	jsonfeeditemcards = new JsonFeedItemCards({ props: { items: /*items*/ ctx[0] } });
 
 	return {
 		c() {
-			for (let i = 0; i < each_blocks.length; i += 1) {
-				each_blocks[i].c();
-			}
-
-			each_1_anchor = empty();
+			create_component(jsonfeeditemcards.$$.fragment);
 		},
 		m(target, anchor) {
-			for (let i = 0; i < each_blocks.length; i += 1) {
-				each_blocks[i].m(target, anchor);
-			}
-
-			insert(target, each_1_anchor, anchor);
-			current = true;
-		},
-		p(ctx, dirty) {
-			if (dirty & /*fetchFeeds*/ 0) {
-				each_value = /*cards*/ ctx[0];
-				let i;
-
-				for (i = 0; i < each_value.length; i += 1) {
-					const child_ctx = get_each_context(ctx, each_value, i);
-
-					if (each_blocks[i]) {
-						each_blocks[i].p(child_ctx, dirty);
-						transition_in(each_blocks[i], 1);
-					} else {
-						each_blocks[i] = create_each_block(child_ctx);
-						each_blocks[i].c();
-						transition_in(each_blocks[i], 1);
-						each_blocks[i].m(each_1_anchor.parentNode, each_1_anchor);
-					}
-				}
-
-				group_outros();
-
-				for (i = each_value.length; i < each_blocks.length; i += 1) {
-					out(i);
-				}
-
-				check_outros();
-			}
-		},
-		i(local) {
-			if (current) return;
-
-			for (let i = 0; i < each_value.length; i += 1) {
-				transition_in(each_blocks[i]);
-			}
-
-			current = true;
-		},
-		o(local) {
-			each_blocks = each_blocks.filter(Boolean);
-
-			for (let i = 0; i < each_blocks.length; i += 1) {
-				transition_out(each_blocks[i]);
-			}
-
-			current = false;
-		},
-		d(detaching) {
-			destroy_each(each_blocks, detaching);
-			if (detaching) detach(each_1_anchor);
-		}
-	};
-}
-
-// (5:4) {#each cards as card, i}
-function create_each_block(ctx) {
-	let cardwithdescription;
-	let current;
-
-	cardwithdescription = new CardWithDescription({
-			props: {
-				card: /*card*/ ctx[1],
-				isFirst: /*i*/ ctx[3] === 0
-			}
-		});
-
-	return {
-		c() {
-			create_component(cardwithdescription.$$.fragment);
-		},
-		m(target, anchor) {
-			mount_component(cardwithdescription, target, anchor);
+			mount_component(jsonfeeditemcards, target, anchor);
 			current = true;
 		},
 		p: noop,
 		i(local) {
 			if (current) return;
-			transition_in(cardwithdescription.$$.fragment, local);
+			transition_in(jsonfeeditemcards.$$.fragment, local);
 			current = true;
 		},
 		o(local) {
-			transition_out(cardwithdescription.$$.fragment, local);
+			transition_out(jsonfeeditemcards.$$.fragment, local);
 			current = false;
 		},
 		d(detaching) {
-			destroy_component(cardwithdescription, detaching);
+			destroy_component(jsonfeeditemcards, detaching);
 		}
 	};
 }
 
-// (2:69)      <p>...waiting</p>   {:then cards}
+// (2:23)      <p>...waiting</p>   {:then items}
 function create_pending_block(ctx) {
 	let p;
 
@@ -207,11 +106,11 @@ function create_fragment(ctx) {
 		then: create_then_block,
 		catch: create_catch_block,
 		value: 0,
-		error: 4,
+		error: 1,
 		blocks: [,,,]
 	};
 
-	handle_promise(promise = fetchFeeds('https://textfeed-api.herokuapp.com/json_feed'), info);
+	handle_promise(promise = fetchFeeds(), info);
 
 	return {
 		c() {
@@ -250,36 +149,6 @@ function create_fragment(ctx) {
 			info = null;
 		}
 	};
-}
-
-async function fetchFeeds(json_feed_url) {
-	let url = json_feed_url;
-	let cards = [];
-
-	while (true) {
-		const response = await fetch(url);
-		const responseJson = await response.json();
-
-		cards.push(...(responseJson === null || responseJson === void 0
-		? void 0
-		: responseJson.items).map(item => {
-			return {
-				description: item.content_text,
-				id: item.id,
-				isoDate: item.date_published,
-				siteName: 'microblog',
-				url: item.url
-			};
-		}));
-
-		if (responseJson.next_url) {
-			url = responseJson.next_url;
-		} else {
-			break;
-		}
-	}
-
-	return cards;
 }
 
 class MicroBlogFeeds extends SvelteComponent {

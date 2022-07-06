@@ -14,6 +14,7 @@ import {
 	insert,
 	listen,
 	mount_component,
+	noop,
 	run_all,
 	safe_not_equal,
 	space,
@@ -24,9 +25,10 @@ import {
 
 import Feeds from './Feeds.svelte.js';
 import MicroBlogFeeds from './MicroBlogFeeds.svelte.js';
-import Slides from './Slides.svelte.js';
-import Contributions from './Contributions.svelte.js';
-import RelatedWorks from './RelatedWorks.svelte.js';
+import JsonFeedItemCards from './JsonFeedItemCards.svelte.js';
+import slides from '../feeds/slides.json.proxy.js';
+import contributions from '../feeds/contributions.json.proxy.js';
+import relatedArticles from '../feeds/related-articles.json.proxy.js';
 
 function create_if_block_4(ctx) {
 	let feeds;
@@ -58,87 +60,90 @@ function create_if_block_4(ctx) {
 
 // (23:4) {#if tabName === '発表'}
 function create_if_block_3(ctx) {
-	let slides;
+	let jsonfeeditemcards;
 	let current;
-	slides = new Slides({});
+	jsonfeeditemcards = new JsonFeedItemCards({ props: { items: slides } });
 
 	return {
 		c() {
-			create_component(slides.$$.fragment);
+			create_component(jsonfeeditemcards.$$.fragment);
 		},
 		m(target, anchor) {
-			mount_component(slides, target, anchor);
+			mount_component(jsonfeeditemcards, target, anchor);
 			current = true;
 		},
+		p: noop,
 		i(local) {
 			if (current) return;
-			transition_in(slides.$$.fragment, local);
+			transition_in(jsonfeeditemcards.$$.fragment, local);
 			current = true;
 		},
 		o(local) {
-			transition_out(slides.$$.fragment, local);
+			transition_out(jsonfeeditemcards.$$.fragment, local);
 			current = false;
 		},
 		d(detaching) {
-			destroy_component(slides, detaching);
+			destroy_component(jsonfeeditemcards, detaching);
 		}
 	};
 }
 
 // (26:4) {#if tabName === '寄稿'}
 function create_if_block_2(ctx) {
-	let contributions;
+	let jsonfeeditemcards;
 	let current;
-	contributions = new Contributions({});
+	jsonfeeditemcards = new JsonFeedItemCards({ props: { items: contributions } });
 
 	return {
 		c() {
-			create_component(contributions.$$.fragment);
+			create_component(jsonfeeditemcards.$$.fragment);
 		},
 		m(target, anchor) {
-			mount_component(contributions, target, anchor);
+			mount_component(jsonfeeditemcards, target, anchor);
 			current = true;
 		},
+		p: noop,
 		i(local) {
 			if (current) return;
-			transition_in(contributions.$$.fragment, local);
+			transition_in(jsonfeeditemcards.$$.fragment, local);
 			current = true;
 		},
 		o(local) {
-			transition_out(contributions.$$.fragment, local);
+			transition_out(jsonfeeditemcards.$$.fragment, local);
 			current = false;
 		},
 		d(detaching) {
-			destroy_component(contributions, detaching);
+			destroy_component(jsonfeeditemcards, detaching);
 		}
 	};
 }
 
 // (29:4) {#if tabName === '関連'}
 function create_if_block_1(ctx) {
-	let relatedworks;
+	let jsonfeeditemcards;
 	let current;
-	relatedworks = new RelatedWorks({});
+	jsonfeeditemcards = new JsonFeedItemCards({ props: { items: relatedArticles } });
 
 	return {
 		c() {
-			create_component(relatedworks.$$.fragment);
+			create_component(jsonfeeditemcards.$$.fragment);
 		},
 		m(target, anchor) {
-			mount_component(relatedworks, target, anchor);
+			mount_component(jsonfeeditemcards, target, anchor);
 			current = true;
 		},
+		p: noop,
 		i(local) {
 			if (current) return;
-			transition_in(relatedworks.$$.fragment, local);
+			transition_in(jsonfeeditemcards.$$.fragment, local);
 			current = true;
 		},
 		o(local) {
-			transition_out(relatedworks.$$.fragment, local);
+			transition_out(jsonfeeditemcards.$$.fragment, local);
 			current = false;
 		},
 		d(detaching) {
-			destroy_component(relatedworks, detaching);
+			destroy_component(jsonfeeditemcards, detaching);
 		}
 	};
 }
@@ -333,6 +338,8 @@ function create_fragment(ctx) {
 
 			if (/*tabName*/ ctx[0] === '発表') {
 				if (if_block1) {
+					if_block1.p(ctx, dirty);
+
 					if (dirty & /*tabName*/ 1) {
 						transition_in(if_block1, 1);
 					}
@@ -354,6 +361,8 @@ function create_fragment(ctx) {
 
 			if (/*tabName*/ ctx[0] === '寄稿') {
 				if (if_block2) {
+					if_block2.p(ctx, dirty);
+
 					if (dirty & /*tabName*/ 1) {
 						transition_in(if_block2, 1);
 					}
@@ -375,6 +384,8 @@ function create_fragment(ctx) {
 
 			if (/*tabName*/ ctx[0] === '関連') {
 				if (if_block3) {
+					if_block3.p(ctx, dirty);
+
 					if (dirty & /*tabName*/ 1) {
 						transition_in(if_block3, 1);
 					}

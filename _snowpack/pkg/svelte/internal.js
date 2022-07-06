@@ -96,6 +96,9 @@ function destroy_each(iterations, detaching) {
 function element(name) {
   return document.createElement(name);
 }
+function svg_element(name) {
+  return document.createElementNS("http://www.w3.org/2000/svg", name);
+}
 function text(data) {
   return document.createTextNode(data);
 }
@@ -122,6 +125,44 @@ function set_data(text2, data) {
   data = "" + data;
   if (text2.wholeText !== data)
     text2.data = data;
+}
+class HtmlTag {
+  constructor(is_svg = false) {
+    this.is_svg = false;
+    this.is_svg = is_svg;
+    this.e = this.n = null;
+  }
+  c(html) {
+    this.h(html);
+  }
+  m(html, target, anchor = null) {
+    if (!this.e) {
+      if (this.is_svg)
+        this.e = svg_element(target.nodeName);
+      else
+        this.e = element(target.nodeName);
+      this.t = target;
+      this.c(html);
+    }
+    this.i(anchor);
+  }
+  h(html) {
+    this.e.innerHTML = html;
+    this.n = Array.from(this.e.childNodes);
+  }
+  i(anchor) {
+    for (let i = 0; i < this.n.length; i += 1) {
+      insert(this.t, this.n[i], anchor);
+    }
+  }
+  p(html) {
+    this.d();
+    this.h(html);
+    this.i(this.a);
+  }
+  d() {
+    this.n.forEach(detach);
+  }
 }
 let current_component;
 function set_current_component(component) {
@@ -415,4 +456,4 @@ class SvelteComponent {
   }
 }
 
-export { SvelteComponent, append, attr, check_outros, create_component, create_slot, destroy_component, destroy_each, detach, element, empty, get_all_dirty_from_scope, get_slot_changes, group_outros, handle_promise, init, insert, listen, mount_component, noop, run_all, safe_not_equal, set_data, space, src_url_equal, text, transition_in, transition_out, update_await_block_branch, update_slot_base };
+export { HtmlTag, SvelteComponent, append, attr, check_outros, create_component, create_slot, destroy_component, destroy_each, detach, element, empty, get_all_dirty_from_scope, get_slot_changes, group_outros, handle_promise, init, insert, listen, mount_component, noop, run_all, safe_not_equal, set_data, space, src_url_equal, text, transition_in, transition_out, update_await_block_branch, update_slot_base };
