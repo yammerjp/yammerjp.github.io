@@ -46,7 +46,6 @@ export class TabsComponent implements OnInit {
     await cacheFeeds.getFeed(t).then(items => {
       this.message = ''
       this.cardItems = items
-      console.log(this.cardItems)
     }).catch(() => {
       this.message = '...failed to fetch items'
       this.cardItems = []
