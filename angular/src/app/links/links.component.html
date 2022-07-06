@@ -1,0 +1,10 @@
+<div class="links">
+      <a [href]="linkItem.url" *ngFor="let linkItem of linkItems">
+        <img [class]="'links-icon ' + linkItem.id" [src]="linkItem.imgSrc" [alt]="linkItem.displayTitle + ' icon'"/>
+        <div class="title-wrapper">
+          <span class="title">
+            {{linkItem.displayTitle}}
+          </span>
+        </div>
+      </a>
+</div>

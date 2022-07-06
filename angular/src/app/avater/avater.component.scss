@@ -1,0 +1,61 @@
+.nickname {
+  margin-top: 24px;
+  color: #888888;
+}
+.description {
+  margin-top: 24px;
+  font-size: 16px;
+  color: #888888;
+}
+.description-mass {
+  display: inline-block;
+}
+.avater-icon {
+  border-radius: 64px;
+}
+.avater {
+  margin-top: 48px;
+  font-size: 30px;
+  padding: 8px;
+  /*
+  text-align: center;
+  */
+}
+.avater-icon {
+  clip-path: url("#bezier-curve-circle");
+  width: 200px;
+}
+.avater-container {
+  display: flex;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding-right: 0;
+}
+
+.avater-container-start, .avater-container-end {
+  margin-bottom: 48px;
+}
+
+.avater-container-end {
+  margin: 0 24px;
+  margin-left: auto;
+  padding-right: 24px;
+  margin-right: 0;
+  padding-right: 0;
+  text-align: right;
+  min-width: 260px;
+}
+
+.avater-description {
+  height: 200px;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
+}
+
+.avater-svg-wrapper {
+  position: absolute;
+  top: -200px;
+}
+
