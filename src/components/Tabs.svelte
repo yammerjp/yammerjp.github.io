@@ -1,53 +1,46 @@
 <div class="tabs-container">
   <nav class="tab-selector-wrapper">
-    <button class="tab-selector{tabName === '投稿' ? ' selected':''}" on:click={selectTab}>
-      投稿
-    </button>
-    <button class="tab-selector{tabName === '発表' ? ' selected':''}" on:click={selectTab}>
-      発表
-    </button>
-    <button class="tab-selector{tabName === '寄稿' ? ' selected':''}" on:click={selectTab}>
-      寄稿
-    </button>
-    <button class="tab-selector{tabName === '関連' ? ' selected':''}" on:click={selectTab}>
-      関連
-    </button>
-    <button class="tab-selector{tabName === '近況' ? ' selected':''}" on:click={selectTab}>
-      近況
-    </button>
+    {#each tabNames as t}
+      <button class="tab-selector{tabName === t ? ' selected':''}" on:click={() => setCardItems(t)}>
+        {t}
+      </button>
+    {/each}
   </nav>
   <div class="feeds-wrapper">
-    {#if tabName === '投稿'}
-      <Feeds />
-    {/if}
-    {#if tabName === '発表'}
-      <JsonFeedItemCards items={slides} />
-    {/if}
-    {#if tabName === '寄稿'}
-      <JsonFeedItemCards items={contributions} />
-    {/if}
-    {#if tabName === '関連'}
-      <JsonFeedItemCards items={relatedArticles} />
-    {/if}
-    {#if tabName === '近況'}
-      <MicroBlogFeeds />
+    {#if message.length > 0}
+      {message}
+    {:else}
+      <JsonFeedItemCards items={cardItems} />
     {/if}
   </div>
 </div>
 
 <script lang="ts">
-import Feeds from './Feeds.svelte';
-import MicroBlogFeeds from './MicroBlogFeeds.svelte'
-import JsonFeedItemCards from './JsonFeedItemCards.svelte';
-import slides from '../feeds/slides.json'
-import contributions from '../feeds/contributions.json'
-import relatedArticles from '../feeds/related-articles.json'
+import JsonFeedItemCards from './JsonFeedItemCards.svelte'
+import type { JsonFeedItem } from '../types/JsonFeedItem'
+import { cacheFeeds } from './TabsUtil'
 
 let tabName = '投稿'
+let cardItems: JsonFeedItem[] = []
+let message: string = ""
 
-function selectTab(event: any) {
-  tabName = event.srcElement.innerText
+const tabNames = ['投稿', '発表', '寄稿', '関連', '近況'] as const;
+type TabNames = typeof tabName[number];
+
+function setCardItems(t: TabNames) {
+  tabName = t
+  message = '...fetching'
+  cardItems = []
+  cacheFeeds.getFeed(t).then(items => {
+    message = ''
+    cardItems = items
+  }).catch(() => {
+    message = '...failed to fetch items'
+    cardItems = []
+  })
 }
+
+setCardItems(tabNames[0])
 </script>
 
 <style>
