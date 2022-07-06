@@ -7,6 +7,7 @@ import {
 	check_outros,
 	create_component,
 	destroy_component,
+	destroy_each,
 	detach,
 	element,
 	group_outros,
@@ -15,54 +16,74 @@ import {
 	listen,
 	mount_component,
 	noop,
-	run_all,
 	safe_not_equal,
+	set_data,
 	space,
 	text,
 	transition_in,
 	transition_out
 } from "../../_snowpack/pkg/svelte/internal.js";
 
-import Feeds from './Feeds.svelte.js';
-import MicroBlogFeeds from './MicroBlogFeeds.svelte.js';
 import JsonFeedItemCards from './JsonFeedItemCards.svelte.js';
-import slides from '../feeds/slides.json.proxy.js';
-import contributions from '../feeds/contributions.json.proxy.js';
-import relatedArticles from '../feeds/related-articles.json.proxy.js';
+import { cacheFeeds } from './TabsUtil.js';
 
-function create_if_block_4(ctx) {
-	let feeds;
-	let current;
-	feeds = new Feeds({});
+function get_each_context(ctx, list, i) {
+	const child_ctx = ctx.slice();
+	child_ctx[6] = list[i];
+	return child_ctx;
+}
+
+// (3:4) {#each tabNames as t}
+function create_each_block(ctx) {
+	let button;
+	let t0_value = /*t*/ ctx[6] + "";
+	let t0;
+	let t1;
+	let button_class_value;
+	let mounted;
+	let dispose;
+
+	function click_handler() {
+		return /*click_handler*/ ctx[5](/*t*/ ctx[6]);
+	}
 
 	return {
 		c() {
-			create_component(feeds.$$.fragment);
+			button = element("button");
+			t0 = text(t0_value);
+			t1 = space();
+			attr(button, "class", button_class_value = "tab-selector" + (/*tabName*/ ctx[0] === /*t*/ ctx[6] ? ' selected' : '') + " svelte-1b4a4nj");
 		},
 		m(target, anchor) {
-			mount_component(feeds, target, anchor);
-			current = true;
+			insert(target, button, anchor);
+			append(button, t0);
+			append(button, t1);
+
+			if (!mounted) {
+				dispose = listen(button, "click", click_handler);
+				mounted = true;
+			}
 		},
-		i(local) {
-			if (current) return;
-			transition_in(feeds.$$.fragment, local);
-			current = true;
-		},
-		o(local) {
-			transition_out(feeds.$$.fragment, local);
-			current = false;
+		p(new_ctx, dirty) {
+			ctx = new_ctx;
+
+			if (dirty & /*tabName*/ 1 && button_class_value !== (button_class_value = "tab-selector" + (/*tabName*/ ctx[0] === /*t*/ ctx[6] ? ' selected' : '') + " svelte-1b4a4nj")) {
+				attr(button, "class", button_class_value);
+			}
 		},
 		d(detaching) {
-			destroy_component(feeds, detaching);
+			if (detaching) detach(button);
+			mounted = false;
+			dispose();
 		}
 	};
 }
 
-// (23:4) {#if tabName === '発表'}
-function create_if_block_3(ctx) {
+// (12:4) {:else}
+function create_else_block(ctx) {
 	let jsonfeeditemcards;
 	let current;
-	jsonfeeditemcards = new JsonFeedItemCards({ props: { items: slides } });
+	jsonfeeditemcards = new JsonFeedItemCards({ props: { items: /*cardItems*/ ctx[1] } });
 
 	return {
 		c() {
@@ -72,7 +93,11 @@ function create_if_block_3(ctx) {
 			mount_component(jsonfeeditemcards, target, anchor);
 			current = true;
 		},
-		p: noop,
+		p(ctx, dirty) {
+			const jsonfeeditemcards_changes = {};
+			if (dirty & /*cardItems*/ 2) jsonfeeditemcards_changes.items = /*cardItems*/ ctx[1];
+			jsonfeeditemcards.$set(jsonfeeditemcards_changes);
+		},
 		i(local) {
 			if (current) return;
 			transition_in(jsonfeeditemcards.$$.fragment, local);
@@ -88,91 +113,24 @@ function create_if_block_3(ctx) {
 	};
 }
 
-// (26:4) {#if tabName === '寄稿'}
-function create_if_block_2(ctx) {
-	let jsonfeeditemcards;
-	let current;
-	jsonfeeditemcards = new JsonFeedItemCards({ props: { items: contributions } });
-
-	return {
-		c() {
-			create_component(jsonfeeditemcards.$$.fragment);
-		},
-		m(target, anchor) {
-			mount_component(jsonfeeditemcards, target, anchor);
-			current = true;
-		},
-		p: noop,
-		i(local) {
-			if (current) return;
-			transition_in(jsonfeeditemcards.$$.fragment, local);
-			current = true;
-		},
-		o(local) {
-			transition_out(jsonfeeditemcards.$$.fragment, local);
-			current = false;
-		},
-		d(detaching) {
-			destroy_component(jsonfeeditemcards, detaching);
-		}
-	};
-}
-
-// (29:4) {#if tabName === '関連'}
-function create_if_block_1(ctx) {
-	let jsonfeeditemcards;
-	let current;
-	jsonfeeditemcards = new JsonFeedItemCards({ props: { items: relatedArticles } });
-
-	return {
-		c() {
-			create_component(jsonfeeditemcards.$$.fragment);
-		},
-		m(target, anchor) {
-			mount_component(jsonfeeditemcards, target, anchor);
-			current = true;
-		},
-		p: noop,
-		i(local) {
-			if (current) return;
-			transition_in(jsonfeeditemcards.$$.fragment, local);
-			current = true;
-		},
-		o(local) {
-			transition_out(jsonfeeditemcards.$$.fragment, local);
-			current = false;
-		},
-		d(detaching) {
-			destroy_component(jsonfeeditemcards, detaching);
-		}
-	};
-}
-
-// (32:4) {#if tabName === '近況'}
+// (10:4) {#if message.length > 0}
 function create_if_block(ctx) {
-	let microblogfeeds;
-	let current;
-	microblogfeeds = new MicroBlogFeeds({});
+	let t;
 
 	return {
 		c() {
-			create_component(microblogfeeds.$$.fragment);
+			t = text(/*message*/ ctx[2]);
 		},
 		m(target, anchor) {
-			mount_component(microblogfeeds, target, anchor);
-			current = true;
+			insert(target, t, anchor);
 		},
-		i(local) {
-			if (current) return;
-			transition_in(microblogfeeds.$$.fragment, local);
-			current = true;
+		p(ctx, dirty) {
+			if (dirty & /*message*/ 4) set_data(t, /*message*/ ctx[2]);
 		},
-		o(local) {
-			transition_out(microblogfeeds.$$.fragment, local);
-			current = false;
-		},
+		i: noop,
+		o: noop,
 		d(detaching) {
-			destroy_component(microblogfeeds, detaching);
+			if (detaching) detach(t);
 		}
 	};
 }
@@ -180,74 +138,41 @@ function create_if_block(ctx) {
 function create_fragment(ctx) {
 	let div1;
 	let nav;
-	let button0;
-	let t0;
-	let button0_class_value;
-	let t1;
-	let button1;
-	let t2;
-	let button1_class_value;
-	let t3;
-	let button2;
-	let t4;
-	let button2_class_value;
-	let t5;
-	let button3;
-	let t6;
-	let button3_class_value;
-	let t7;
-	let button4;
-	let t8;
-	let button4_class_value;
-	let t9;
+	let t;
 	let div0;
-	let t10;
-	let t11;
-	let t12;
-	let t13;
+	let current_block_type_index;
+	let if_block;
 	let current;
-	let mounted;
-	let dispose;
-	let if_block0 = /*tabName*/ ctx[0] === '投稿' && create_if_block_4(ctx);
-	let if_block1 = /*tabName*/ ctx[0] === '発表' && create_if_block_3(ctx);
-	let if_block2 = /*tabName*/ ctx[0] === '寄稿' && create_if_block_2(ctx);
-	let if_block3 = /*tabName*/ ctx[0] === '関連' && create_if_block_1(ctx);
-	let if_block4 = /*tabName*/ ctx[0] === '近況' && create_if_block(ctx);
+	let each_value = /*tabNames*/ ctx[3];
+	let each_blocks = [];
+
+	for (let i = 0; i < each_value.length; i += 1) {
+		each_blocks[i] = create_each_block(get_each_context(ctx, each_value, i));
+	}
+
+	const if_block_creators = [create_if_block, create_else_block];
+	const if_blocks = [];
+
+	function select_block_type(ctx, dirty) {
+		if (/*message*/ ctx[2].length > 0) return 0;
+		return 1;
+	}
+
+	current_block_type_index = select_block_type(ctx, -1);
+	if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
 
 	return {
 		c() {
 			div1 = element("div");
 			nav = element("nav");
-			button0 = element("button");
-			t0 = text("投稿");
-			t1 = space();
-			button1 = element("button");
-			t2 = text("発表");
-			t3 = space();
-			button2 = element("button");
-			t4 = text("寄稿");
-			t5 = space();
-			button3 = element("button");
-			t6 = text("関連");
-			t7 = space();
-			button4 = element("button");
-			t8 = text("近況");
-			t9 = space();
+
+			for (let i = 0; i < each_blocks.length; i += 1) {
+				each_blocks[i].c();
+			}
+
+			t = space();
 			div0 = element("div");
-			if (if_block0) if_block0.c();
-			t10 = space();
-			if (if_block1) if_block1.c();
-			t11 = space();
-			if (if_block2) if_block2.c();
-			t12 = space();
-			if (if_block3) if_block3.c();
-			t13 = space();
-			if (if_block4) if_block4.c();
-			attr(button0, "class", button0_class_value = "tab-selector" + (/*tabName*/ ctx[0] === '投稿' ? ' selected' : '') + " svelte-1b4a4nj");
-			attr(button1, "class", button1_class_value = "tab-selector" + (/*tabName*/ ctx[0] === '発表' ? ' selected' : '') + " svelte-1b4a4nj");
-			attr(button2, "class", button2_class_value = "tab-selector" + (/*tabName*/ ctx[0] === '寄稿' ? ' selected' : '') + " svelte-1b4a4nj");
-			attr(button3, "class", button3_class_value = "tab-selector" + (/*tabName*/ ctx[0] === '関連' ? ' selected' : '') + " svelte-1b4a4nj");
-			attr(button4, "class", button4_class_value = "tab-selector" + (/*tabName*/ ctx[0] === '近況' ? ' selected' : '') + " svelte-1b4a4nj");
+			if_block.c();
 			attr(nav, "class", "tab-selector-wrapper svelte-1b4a4nj");
 			attr(div0, "class", "feeds-wrapper svelte-1b4a4nj");
 			attr(div1, "class", "tabs-container");
@@ -255,215 +180,106 @@ function create_fragment(ctx) {
 		m(target, anchor) {
 			insert(target, div1, anchor);
 			append(div1, nav);
-			append(nav, button0);
-			append(button0, t0);
-			append(nav, t1);
-			append(nav, button1);
-			append(button1, t2);
-			append(nav, t3);
-			append(nav, button2);
-			append(button2, t4);
-			append(nav, t5);
-			append(nav, button3);
-			append(button3, t6);
-			append(nav, t7);
-			append(nav, button4);
-			append(button4, t8);
-			append(div1, t9);
-			append(div1, div0);
-			if (if_block0) if_block0.m(div0, null);
-			append(div0, t10);
-			if (if_block1) if_block1.m(div0, null);
-			append(div0, t11);
-			if (if_block2) if_block2.m(div0, null);
-			append(div0, t12);
-			if (if_block3) if_block3.m(div0, null);
-			append(div0, t13);
-			if (if_block4) if_block4.m(div0, null);
-			current = true;
 
-			if (!mounted) {
-				dispose = [
-					listen(button0, "click", /*selectTab*/ ctx[1]),
-					listen(button1, "click", /*selectTab*/ ctx[1]),
-					listen(button2, "click", /*selectTab*/ ctx[1]),
-					listen(button3, "click", /*selectTab*/ ctx[1]),
-					listen(button4, "click", /*selectTab*/ ctx[1])
-				];
-
-				mounted = true;
+			for (let i = 0; i < each_blocks.length; i += 1) {
+				each_blocks[i].m(nav, null);
 			}
+
+			append(div1, t);
+			append(div1, div0);
+			if_blocks[current_block_type_index].m(div0, null);
+			current = true;
 		},
 		p(ctx, [dirty]) {
-			if (!current || dirty & /*tabName*/ 1 && button0_class_value !== (button0_class_value = "tab-selector" + (/*tabName*/ ctx[0] === '投稿' ? ' selected' : '') + " svelte-1b4a4nj")) {
-				attr(button0, "class", button0_class_value);
-			}
+			if (dirty & /*tabName, tabNames, setCardItems*/ 25) {
+				each_value = /*tabNames*/ ctx[3];
+				let i;
 
-			if (!current || dirty & /*tabName*/ 1 && button1_class_value !== (button1_class_value = "tab-selector" + (/*tabName*/ ctx[0] === '発表' ? ' selected' : '') + " svelte-1b4a4nj")) {
-				attr(button1, "class", button1_class_value);
-			}
+				for (i = 0; i < each_value.length; i += 1) {
+					const child_ctx = get_each_context(ctx, each_value, i);
 
-			if (!current || dirty & /*tabName*/ 1 && button2_class_value !== (button2_class_value = "tab-selector" + (/*tabName*/ ctx[0] === '寄稿' ? ' selected' : '') + " svelte-1b4a4nj")) {
-				attr(button2, "class", button2_class_value);
-			}
-
-			if (!current || dirty & /*tabName*/ 1 && button3_class_value !== (button3_class_value = "tab-selector" + (/*tabName*/ ctx[0] === '関連' ? ' selected' : '') + " svelte-1b4a4nj")) {
-				attr(button3, "class", button3_class_value);
-			}
-
-			if (!current || dirty & /*tabName*/ 1 && button4_class_value !== (button4_class_value = "tab-selector" + (/*tabName*/ ctx[0] === '近況' ? ' selected' : '') + " svelte-1b4a4nj")) {
-				attr(button4, "class", button4_class_value);
-			}
-
-			if (/*tabName*/ ctx[0] === '投稿') {
-				if (if_block0) {
-					if (dirty & /*tabName*/ 1) {
-						transition_in(if_block0, 1);
+					if (each_blocks[i]) {
+						each_blocks[i].p(child_ctx, dirty);
+					} else {
+						each_blocks[i] = create_each_block(child_ctx);
+						each_blocks[i].c();
+						each_blocks[i].m(nav, null);
 					}
-				} else {
-					if_block0 = create_if_block_4(ctx);
-					if_block0.c();
-					transition_in(if_block0, 1);
-					if_block0.m(div0, t10);
 				}
-			} else if (if_block0) {
+
+				for (; i < each_blocks.length; i += 1) {
+					each_blocks[i].d(1);
+				}
+
+				each_blocks.length = each_value.length;
+			}
+
+			let previous_block_index = current_block_type_index;
+			current_block_type_index = select_block_type(ctx, dirty);
+
+			if (current_block_type_index === previous_block_index) {
+				if_blocks[current_block_type_index].p(ctx, dirty);
+			} else {
 				group_outros();
 
-				transition_out(if_block0, 1, 1, () => {
-					if_block0 = null;
+				transition_out(if_blocks[previous_block_index], 1, 1, () => {
+					if_blocks[previous_block_index] = null;
 				});
 
 				check_outros();
-			}
+				if_block = if_blocks[current_block_type_index];
 
-			if (/*tabName*/ ctx[0] === '発表') {
-				if (if_block1) {
-					if_block1.p(ctx, dirty);
-
-					if (dirty & /*tabName*/ 1) {
-						transition_in(if_block1, 1);
-					}
+				if (!if_block) {
+					if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+					if_block.c();
 				} else {
-					if_block1 = create_if_block_3(ctx);
-					if_block1.c();
-					transition_in(if_block1, 1);
-					if_block1.m(div0, t11);
+					if_block.p(ctx, dirty);
 				}
-			} else if (if_block1) {
-				group_outros();
 
-				transition_out(if_block1, 1, 1, () => {
-					if_block1 = null;
-				});
-
-				check_outros();
-			}
-
-			if (/*tabName*/ ctx[0] === '寄稿') {
-				if (if_block2) {
-					if_block2.p(ctx, dirty);
-
-					if (dirty & /*tabName*/ 1) {
-						transition_in(if_block2, 1);
-					}
-				} else {
-					if_block2 = create_if_block_2(ctx);
-					if_block2.c();
-					transition_in(if_block2, 1);
-					if_block2.m(div0, t12);
-				}
-			} else if (if_block2) {
-				group_outros();
-
-				transition_out(if_block2, 1, 1, () => {
-					if_block2 = null;
-				});
-
-				check_outros();
-			}
-
-			if (/*tabName*/ ctx[0] === '関連') {
-				if (if_block3) {
-					if_block3.p(ctx, dirty);
-
-					if (dirty & /*tabName*/ 1) {
-						transition_in(if_block3, 1);
-					}
-				} else {
-					if_block3 = create_if_block_1(ctx);
-					if_block3.c();
-					transition_in(if_block3, 1);
-					if_block3.m(div0, t13);
-				}
-			} else if (if_block3) {
-				group_outros();
-
-				transition_out(if_block3, 1, 1, () => {
-					if_block3 = null;
-				});
-
-				check_outros();
-			}
-
-			if (/*tabName*/ ctx[0] === '近況') {
-				if (if_block4) {
-					if (dirty & /*tabName*/ 1) {
-						transition_in(if_block4, 1);
-					}
-				} else {
-					if_block4 = create_if_block(ctx);
-					if_block4.c();
-					transition_in(if_block4, 1);
-					if_block4.m(div0, null);
-				}
-			} else if (if_block4) {
-				group_outros();
-
-				transition_out(if_block4, 1, 1, () => {
-					if_block4 = null;
-				});
-
-				check_outros();
+				transition_in(if_block, 1);
+				if_block.m(div0, null);
 			}
 		},
 		i(local) {
 			if (current) return;
-			transition_in(if_block0);
-			transition_in(if_block1);
-			transition_in(if_block2);
-			transition_in(if_block3);
-			transition_in(if_block4);
+			transition_in(if_block);
 			current = true;
 		},
 		o(local) {
-			transition_out(if_block0);
-			transition_out(if_block1);
-			transition_out(if_block2);
-			transition_out(if_block3);
-			transition_out(if_block4);
+			transition_out(if_block);
 			current = false;
 		},
 		d(detaching) {
 			if (detaching) detach(div1);
-			if (if_block0) if_block0.d();
-			if (if_block1) if_block1.d();
-			if (if_block2) if_block2.d();
-			if (if_block3) if_block3.d();
-			if (if_block4) if_block4.d();
-			mounted = false;
-			run_all(dispose);
+			destroy_each(each_blocks, detaching);
+			if_blocks[current_block_type_index].d();
 		}
 	};
 }
 
 function instance($$self, $$props, $$invalidate) {
 	let tabName = '投稿';
+	let cardItems = [];
+	let message = "";
+	const tabNames = ['投稿', '発表', '寄稿', '関連', '近況'];
 
-	function selectTab(event) {
-		$$invalidate(0, tabName = event.srcElement.innerText);
+	function setCardItems(t) {
+		$$invalidate(0, tabName = t);
+		$$invalidate(2, message = '...fetching');
+		$$invalidate(1, cardItems = []);
+
+		cacheFeeds.getFeed(t).then(items => {
+			$$invalidate(2, message = '');
+			$$invalidate(1, cardItems = items);
+		}).catch(() => {
+			$$invalidate(2, message = '...failed to fetch items');
+			$$invalidate(1, cardItems = []);
+		});
 	}
 
-	return [tabName, selectTab];
+	setCardItems(tabNames[0]);
+	const click_handler = t => setCardItems(t);
+	return [tabName, cardItems, message, tabNames, setCardItems, click_handler];
 }
 
 class Tabs extends SvelteComponent {

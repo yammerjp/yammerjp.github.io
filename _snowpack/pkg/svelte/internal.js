@@ -1,13 +1,5 @@
 function noop() {
 }
-function assign(tar, src) {
-  for (const k in src)
-    tar[k] = src[k];
-  return tar;
-}
-function is_promise(value) {
-  return value && typeof value === "object" && typeof value.then === "function";
-}
 function run(fn) {
   return fn();
 }
@@ -33,50 +25,6 @@ function src_url_equal(element_src, url) {
 }
 function is_empty(obj) {
   return Object.keys(obj).length === 0;
-}
-function create_slot(definition, ctx, $$scope, fn) {
-  if (definition) {
-    const slot_ctx = get_slot_context(definition, ctx, $$scope, fn);
-    return definition[0](slot_ctx);
-  }
-}
-function get_slot_context(definition, ctx, $$scope, fn) {
-  return definition[1] && fn ? assign($$scope.ctx.slice(), definition[1](fn(ctx))) : $$scope.ctx;
-}
-function get_slot_changes(definition, $$scope, dirty, fn) {
-  if (definition[2] && fn) {
-    const lets = definition[2](fn(dirty));
-    if ($$scope.dirty === void 0) {
-      return lets;
-    }
-    if (typeof lets === "object") {
-      const merged = [];
-      const len = Math.max($$scope.dirty.length, lets.length);
-      for (let i = 0; i < len; i += 1) {
-        merged[i] = $$scope.dirty[i] | lets[i];
-      }
-      return merged;
-    }
-    return $$scope.dirty | lets;
-  }
-  return $$scope.dirty;
-}
-function update_slot_base(slot, slot_definition, ctx, $$scope, slot_changes, get_slot_context_fn) {
-  if (slot_changes) {
-    const slot_context = get_slot_context(slot_definition, ctx, $$scope, get_slot_context_fn);
-    slot.p(slot_context, slot_changes);
-  }
-}
-function get_all_dirty_from_scope($$scope) {
-  if ($$scope.ctx.length > 32) {
-    const dirty = [];
-    const length = $$scope.ctx.length / 32;
-    for (let i = 0; i < length; i++) {
-      dirty[i] = -1;
-    }
-    return dirty;
-  }
-  return -1;
 }
 function append(target, node) {
   target.appendChild(node);
@@ -167,11 +115,6 @@ class HtmlTag {
 let current_component;
 function set_current_component(component) {
   current_component = component;
-}
-function get_current_component() {
-  if (!current_component)
-    throw new Error("Function called outside component initialization");
-  return current_component;
 }
 const dirty_components = [];
 const binding_callbacks = [];
@@ -266,84 +209,6 @@ function transition_out(block, local, detach2, callback) {
     });
     block.o(local);
   }
-}
-function handle_promise(promise2, info) {
-  const token = info.token = {};
-  function update2(type, index, key, value) {
-    if (info.token !== token)
-      return;
-    info.resolved = value;
-    let child_ctx = info.ctx;
-    if (key !== void 0) {
-      child_ctx = child_ctx.slice();
-      child_ctx[key] = value;
-    }
-    const block = type && (info.current = type)(child_ctx);
-    let needs_flush = false;
-    if (info.block) {
-      if (info.blocks) {
-        info.blocks.forEach((block2, i) => {
-          if (i !== index && block2) {
-            group_outros();
-            transition_out(block2, 1, 1, () => {
-              if (info.blocks[i] === block2) {
-                info.blocks[i] = null;
-              }
-            });
-            check_outros();
-          }
-        });
-      } else {
-        info.block.d(1);
-      }
-      block.c();
-      transition_in(block, 1);
-      block.m(info.mount(), info.anchor);
-      needs_flush = true;
-    }
-    info.block = block;
-    if (info.blocks)
-      info.blocks[index] = block;
-    if (needs_flush) {
-      flush();
-    }
-  }
-  if (is_promise(promise2)) {
-    const current_component2 = get_current_component();
-    promise2.then((value) => {
-      set_current_component(current_component2);
-      update2(info.then, 1, info.value, value);
-      set_current_component(null);
-    }, (error) => {
-      set_current_component(current_component2);
-      update2(info.catch, 2, info.error, error);
-      set_current_component(null);
-      if (!info.hasCatch) {
-        throw error;
-      }
-    });
-    if (info.current !== info.pending) {
-      update2(info.pending, 0);
-      return true;
-    }
-  } else {
-    if (info.current !== info.then) {
-      update2(info.then, 1, info.value, promise2);
-      return true;
-    }
-    info.resolved = promise2;
-  }
-}
-function update_await_block_branch(info, ctx, dirty) {
-  const child_ctx = ctx.slice();
-  const {resolved} = info;
-  if (info.current === info.then) {
-    child_ctx[info.value] = resolved;
-  }
-  if (info.current === info.catch) {
-    child_ctx[info.error] = resolved;
-  }
-  info.block.p(child_ctx, dirty);
 }
 function create_component(block) {
   block && block.c();
@@ -456,4 +321,4 @@ class SvelteComponent {
   }
 }
 
-export { HtmlTag, SvelteComponent, append, attr, check_outros, create_component, create_slot, destroy_component, destroy_each, detach, element, empty, get_all_dirty_from_scope, get_slot_changes, group_outros, handle_promise, init, insert, listen, mount_component, noop, run_all, safe_not_equal, set_data, space, src_url_equal, text, transition_in, transition_out, update_await_block_branch, update_slot_base };
+export { HtmlTag, SvelteComponent, append, attr, check_outros, create_component, destroy_component, destroy_each, detach, element, empty, group_outros, init, insert, listen, mount_component, noop, safe_not_equal, set_data, space, src_url_equal, text, transition_in, transition_out };
