@@ -1,4 +1,4 @@
-import { fetchFeeds } from '../lib/JsonFeedFetcher'
+import { fetchFeeds } from './JsonFeedFetcher'
 
 function siteName(url: string): string {
   if (/^https:\/\/memo\.yammer\.jp\//.test(url)) {

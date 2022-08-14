@@ -1,8 +1,8 @@
-import { CacheFeeds } from '../CacheFeeds'
+import { CacheFeeds } from '../feedsManagement/CacheFeeds'
 import slides from '../dataSouces/slides.json'
 import contributions from '../dataSouces/contributions.json'
 import relatedArticles from '../dataSouces/related-articles.json'
-import { fetchAndTransformFeeds } from '../FeedTransformer'
+import { fetchAndTransformFeeds } from '../feedsManagement/FeedTransformer'
 
 const cacheFeeds = new CacheFeeds();
 cacheFeeds.setFetcher('投稿', () => fetchAndTransformFeeds('https://rsss.yammer.jp/v0/json_feed'))
