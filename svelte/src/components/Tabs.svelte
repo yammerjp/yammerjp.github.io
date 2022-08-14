@@ -18,7 +18,7 @@
 <script lang="ts">
 import JsonFeedItemCards from './JsonFeedItemCards.svelte'
 import type { JsonFeedItem } from '../types/JsonFeedItem'
-import { cacheFeeds } from './TabsUtil'
+import { cacheFeeds } from '../lib/componentUtils/TabsUtil'
 
 let tabName = '投稿'
 let cardItems: JsonFeedItem[] = []
