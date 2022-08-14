@@ -1,7 +1,7 @@
 import { CacheFeeds } from '../CacheFeeds'
-import slides from '../feeds/slides.json'
-import contributions from '../feeds/contributions.json'
-import relatedArticles from '../feeds/related-articles.json'
+import slides from '../dataSouces/slides.json'
+import contributions from '../dataSouces/contributions.json'
+import relatedArticles from '../dataSouces/related-articles.json'
 import { fetchAndTransformFeeds } from '../FeedTransformer'
 
 const cacheFeeds = new CacheFeeds();
