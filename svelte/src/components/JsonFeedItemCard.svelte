@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { JsonFeedItem } from '../types/JsonFeedItem'
-import { description, iso8601toStr } from './JsonFeedItemCardUtilis'
+import { description, iso8601toStr } from './JsonFeedItemCardUtils'
 export let item: JsonFeedItem
 export let isFirst: boolean
 </script>
