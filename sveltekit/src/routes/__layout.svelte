@@ -1,45 +1,56 @@
 <script lang="ts">
-	import Header from '$lib/header/Header.svelte';
-	import '../app.css';
+  import Avater from '$lib/components/Avater.svelte';
+  import Links from '$lib/components/Links.svelte'
 </script>
 
-<Header />
-
 <main>
-	<slot />
+  <div id="app">
+    <Avater />
+    <Links />
+    <slot />
+  </div>
 </main>
 
 <footer>
-	<p>visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to learn SvelteKit</p>
+    <div>©2020-2022 <a href="https://github.com/yammerjp">yammer</a></div>
 </footer>
 
 <style>
-	main {
-		flex: 1;
-		display: flex;
-		flex-direction: column;
-		padding: 1rem;
-		width: 100%;
-		max-width: 1024px;
-		margin: 0 auto;
-		box-sizing: border-box;
-	}
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #2c3e50;
+  margin-top: 60px;
+  text-align: left;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 16px;
+}
 
-	footer {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		padding: 40px;
-	}
+:global(body) {
+  padding: 0;
+  margin: 0;
+}
 
-	footer a {
-		font-weight: bold;
-	}
+:global(html) {
+ overflow-y: scroll;
+}
 
-	@media (min-width: 480px) {
-		footer {
-			padding: 40px 0;
-		}
-	}
+:global(a) {
+  /*
+  color: #42b983;
+  */
+  color: #5da4de;
+}
+footer {
+  margin-top: 50px;
+  padding: 0 16px;
+  color: #777777;
+}
+:global(h2) {
+  margin-top: 50px;
+  margin-bottom: 10px;
+}
+
 </style>
