@@ -3,6 +3,8 @@
 </script>
 
 <script lang="ts">
+  import Avater from '$lib/components/Avater.svelte';
+  import Links from '$lib/components/Links.svelte'
   import Tabs from '$lib/components/Tabs.svelte';
 </script>
 
@@ -11,4 +13,6 @@
 	<meta name="description" content="Svelte demo app" />
 </svelte:head>
 
+<Avater />
+<Links />
 <Tabs />

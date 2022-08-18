@@ -1,12 +1,5 @@
-<script lang="ts">
-  import Avater from '$lib/components/Avater.svelte';
-  import Links from '$lib/components/Links.svelte'
-</script>
-
 <main>
   <div id="app">
-    <Avater />
-    <Links />
     <slot />
   </div>
 </main>
