@@ -44,7 +44,8 @@
   color: #5da4de;
 }
 footer {
-  margin-top: 50px;
+  max-width: 800px;
+  margin: 50px auto 0 auto;
   padding: 0 16px;
   color: #777777;
 }
