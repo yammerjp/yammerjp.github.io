@@ -1,6 +1,6 @@
 import type { JsonFeedItem } from '../types/JsonFeedItem'
 
-interface JsonFeedItemWithSummary extends JsonFeedItem {
+export interface JsonFeedItemWithSummary extends JsonFeedItem {
   summary?: string;
 }
 

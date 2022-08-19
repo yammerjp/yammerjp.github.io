@@ -1,4 +1,5 @@
 import { fetchFeeds } from './JsonFeedFetcher'
+import type { JsonFeedItemWithSummary } from './JsonFeedFetcher'
 
 function siteName(url: string): string {
   if (/^https:\/\/memo\.yammer\.jp\//.test(url)) {
@@ -15,10 +16,11 @@ function siteName(url: string): string {
   }
   return url;
 }
-export const fetchAndTransformFeeds = (url: string) => fetchFeeds(url).then(arr => arr.map(elm => ({
+
+export const transformFeeds = (feeds: JsonFeedItemWithSummary[]) => feeds.map(elm => ({
   ...elm,
   content_text: elm.summary ?? elm.content_text,
   _site_name: siteName(elm.url)
-})))
+}))
 
-
+export const fetchAndTransformFeeds = (url: string) => fetchFeeds(url).then(transformFeeds)

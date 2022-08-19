@@ -5,10 +5,10 @@ import relatedArticles from '../dataSouces/related-articles.json'
 import { fetchAndTransformFeeds } from '../feedsManagement/FeedTransformer'
 
 const cacheFeeds = new CacheFeeds();
-cacheFeeds.setFetcher('投稿', () => fetchAndTransformFeeds('https://rsss.yammer.jp/v0/json_feed'))
-cacheFeeds.setFetcher('発表', () => Promise.resolve(slides))
-cacheFeeds.setFetcher('寄稿', () => Promise.resolve(contributions))
-cacheFeeds.setFetcher('関連', () => Promise.resolve(relatedArticles))
-cacheFeeds.setFetcher('近況', () => fetchAndTransformFeeds('https://textfeed-api.herokuapp.com/json_feed'))
+cacheFeeds.setFetcher('recent-posts', () => fetchAndTransformFeeds('https://rsss.yammer.jp/v0/json_feed'))
+cacheFeeds.setFetcher('slides', () => Promise.resolve(slides))
+cacheFeeds.setFetcher('contributions', () => Promise.resolve(contributions))
+cacheFeeds.setFetcher('related-posts', () => Promise.resolve(relatedArticles))
+cacheFeeds.setFetcher('murmurs', () => fetchAndTransformFeeds('https://textfeed-api.herokuapp.com/json_feed'))
 
 export { cacheFeeds }
