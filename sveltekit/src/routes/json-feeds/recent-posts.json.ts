@@ -1,4 +1,4 @@
-import type { RequestHandler } from './__types';
+import type { RequestHandler } from '@sveltejs/kit';
 import { fetchFeeds } from '$lib/feedsManagement/JsonFeedFetcher'
 
 const feedUrl = 'https://rsss.yammer.jp/v0/json_feed';

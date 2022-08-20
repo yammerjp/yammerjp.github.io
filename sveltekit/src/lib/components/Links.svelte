@@ -16,7 +16,7 @@
 </div>
 
 <script lang="ts">
-  import linkItems from '$lib/dataSources/LinkItems'
+  import linkItems from '$lib/dataSources/LinkItems.json'
 </script>
 
 <style>

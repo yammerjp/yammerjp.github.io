@@ -1,17 +1,11 @@
 <script context="module" lang="ts">
   import type { Load } from '@sveltejs/kit'
-  import TabDefinitions from '$lib/dataSources/TabDefinitions'
+  import type { Tab } from '$lib/types/Tab'
+  import TabDefinitions from '$lib/dataSources/TabDefinitions.json'
   import { loadInternalEndpointFeeds } from '$lib/loadInternalEndpointFeeds'
 
   export const prerender = true;
   export const load: Load = async ({ fetch }) => {
-
-  type Tab = {
-    id: string,
-    label: string,
-    pagePath: string,
-    feedPath: string,
-  }
 
   const tab: Tab | undefined = TabDefinitions.find((t : Tab)=> t.id === 'recent-posts')
   if (!tab) {
