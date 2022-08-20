@@ -3,14 +3,18 @@
     {#if message.length > 0}
       {message}
     {:else}
-      <JsonFeedItemCards items={cardItems} />
+      <div class=json-feed-item-cards>
+        {#each cardItems as item, i}
+          <JsonFeedItemCard item={item} isFirst={i===0} />
+        {/each}
+      </div>
     {/if}
   </div>
 </div>
 
 <script lang="ts">
-import JsonFeedItemCards from './JsonFeedItemCards.svelte'
-import type { JsonFeedItem } from '../types/JsonFeedItem'
+import JsonFeedItemCard from './JsonFeedItemCard.svelte'
+import type { JsonFeedItem } from '$lib/types/JsonFeedItem'
 
 export let cardItems: JsonFeedItem[] = []
 export let message: string = ""
@@ -21,5 +25,8 @@ export let message: string = ""
   .feeds-wrapper {
     padding: 0 8px;
     margin-top: 32px
+  }
+  .json-feed-item-cards {
+    margin-top: 5px;
   }
 </style>
