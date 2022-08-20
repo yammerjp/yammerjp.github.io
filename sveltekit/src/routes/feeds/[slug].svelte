@@ -4,9 +4,27 @@
   import { loadInternalEndpointFeeds } from '$lib/loadInternalEndpointFeeds'
 
   export const prerender = true;
-  export const load: Load = async ({ fetch }) => {
-    const url = TabDefinitions.find((t: {id: string, label: string, pagePath: string, feedPath: string} )=> t.id === 'recent-posts')?.feedPath ?? ''
-    return loadInternalEndpointFeeds(fetch, url)
+  export const load: Load = async ({ fetch, params }) => {
+
+  type Tab = {
+    id: string,
+    label: string,
+    pagePath: string,
+    feedPath: string,
+  }
+
+  const tab: Tab | undefined = TabDefinitions.find((t : Tab)=> t.id === params.slug)
+  if (!tab) {
+    return {
+      status: 404
+    }
+  }
+    const url = tab.feedPath
+    const { status,  props } = await loadInternalEndpointFeeds(fetch, url)
+    return {
+      status,
+      props: { ...props, tab }
+    }
   }
 </script>
 
@@ -18,14 +36,15 @@
   import type { JsonFeedItemWithSummary } from '$lib/feedsManagement/JsonFeedFetcher';
   export let message = ''
   export let cardItems: JsonFeedItemWithSummary[] = []
+  export let tab: Tab
 </script>
 
 <svelte:head>
   <title>yammer.jp</title>
-	<meta name="description" content="投稿 - yammer.jp" />
+  <meta name="description" content={`${tab?.label} - yammer.jp`} />
 </svelte:head>
 
 <Avater />
 <Links />
-<TabSelector selectedTabId={'recent-posts'}/>
+<TabSelector selectedTabId={tab?.id}/>
 <TabContent cardItems={cardItems} message={message}/>

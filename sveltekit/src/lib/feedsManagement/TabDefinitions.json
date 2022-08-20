@@ -2,31 +2,31 @@
   {
     "id": "recent-posts",
     "label": "投稿",
-    "pagePath": "/recent-posts",
+    "pagePath": "/feeds/recent-posts",
     "feedPath": "/json-feeds/recent-posts.json"
   },
   {
     "id": "slides",
     "label": "発表",
-    "pagePath": "/slides",
+    "pagePath": "/feeds/slides",
     "feedPath": "/json-feeds/slides.json"
   },
   {
     "id": "contributions",
     "label": "寄稿",
-    "pagePath": "/contributions",
+    "pagePath": "/feeds/contributions",
     "feedPath": "/json-feeds/contributions.json"
   },
   {
     "id": "related-posts",
     "label": "関連",
-    "pagePath": "/related-posts",
+    "pagePath": "/feeds/related-posts",
     "feedPath": "/json-feeds/related-posts.json"
   },
   {
     "id": "murmurs",
     "label": "近況",
-    "pagePath": "/murmurs",
+    "pagePath": "/feeds/murmurs",
     "feedPath": "/json-feeds/murmurs.json"
   }
 ]

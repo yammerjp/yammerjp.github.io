@@ -1,7 +1,12 @@
 <div class="tabs-container">
   <nav class="tab-selector-wrapper">
     {#each tabDefinitions as t}
-      <a class="tab-selector{ t.id === selectedTabId ? ' selected':''}" sveltekit:prefetch href={t.pagePath}>
+      <a
+        class="tab-selector{ t.id === selectedTabId ? ' selected':''}"
+        href={t.pagePath}
+        sveltekit:prefetch
+        sveltekit:noscroll
+      >
         {t.label}
       </a>
     {/each}
