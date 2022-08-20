@@ -36,3 +36,11 @@ npm run build
 You can preview the production build with `npm run preview`.
 
 > To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+
+## Show builded files
+
+```
+npm run build
+docker run --name nginx-yammerjp -v $PWD/build:/usr/share/nginx/html:ro -d -p 18080:80 nginx
+open localhost:18080
+```
