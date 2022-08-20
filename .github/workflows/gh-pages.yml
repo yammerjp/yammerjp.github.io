@@ -3,10 +3,13 @@
 name: github pages
 
 on:
+  schedule:
+    - cron: "0 18 * * *"
   workflow_dispatch:
   push:
     branches:
     - master
+    - sveltekit
 
 jobs:
   deploy:
