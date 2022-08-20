@@ -1,16 +1,26 @@
 import type { JsonFeedItem } from '$lib/types/JsonFeedItem'
+import type { Tab } from '$lib/types/Tab'
+import TabDefinitions from '$lib/dataSources/TabDefinitions.json'
 import { transformFeeds } from '$lib/feedsManagement/FeedTransformer'
 
 type Loaded = {
   status: number,
-  props: {
+  props?: {
     message: string,
     cardItems: JsonFeedItem[]
   }
 }
 
-export const loadInternalEndpointFeeds = async (fetch: any, feedPath: string): Promise<Loaded> => {
-  const res = await fetch(feedPath)
+// TODO: replace any
+export const loadTab = async (fetch: any, tabId: string): Promise<Loaded> => {
+  const tab: Tab | undefined = TabDefinitions.find((t : Tab)=> t.id === tabId)
+  if (!tab) {
+    return {
+      status: 404
+    }
+  }
+
+  const res = await fetch(tab.feedPath)
   if (!res.ok) {
     return {
       status: res.status,
@@ -20,6 +30,7 @@ export const loadInternalEndpointFeeds = async (fetch: any, feedPath: string): P
       }
     }
   }
+
   const cardItems = transformFeeds(await res.json() as JsonFeedItem[])
   return {
     status: 200,
