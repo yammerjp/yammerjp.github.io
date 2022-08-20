@@ -28,8 +28,17 @@ const siteNameCorrespondences = [
   }
 ]
 
+const　url2fqdn = (url: string): string => {
+  return url.split(':').
+    flatMap(s => s?.split('/')).
+    flatMap(s => s?.split('?')).
+    flatMap(s => s?.split('#')).
+    filter(s => s).
+    at(1) ?? url
+}
+
 function siteName(url: string): string {
-  return siteNameCorrespondences.find(c => c.applicableRegex.test(url))?.siteName ?? url
+  return siteNameCorrespondences.find(c => c.applicableRegex.test(url))?.siteName ?? url2fqdn(url)
 }
 
 export const transformFeeds = (feeds: JsonFeedItemWithSummary[]) => feeds.map(elm => ({
