@@ -7,7 +7,8 @@ type Loaded = {
   status: number,
   props?: {
     message: string,
-    cardItems: JsonFeedItem[]
+    cardItems: JsonFeedItem[],
+    tab?: Tab
   }
 }
 
@@ -37,6 +38,7 @@ export const loadTab = async (fetch: any, tabId: string): Promise<Loaded> => {
     props: {
       message: '',
       cardItems, 
+      tab
     }
   }
 }

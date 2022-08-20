@@ -18,8 +18,10 @@
 </script>
 
 <svelte:head>
-  <title>yammer.jp</title>
+  <meta charset="utf-8">
+  <title>{tab?.label} - yammer.jp</title>
   <meta name="description" content={`${tab?.label} - yammer.jp`} />
+  <meta name="description" content="yammer is a Web Developper and a Scuba Diver" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <meta property="og:title" content="yammer.jp" />
