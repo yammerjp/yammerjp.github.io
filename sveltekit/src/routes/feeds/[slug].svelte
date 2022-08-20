@@ -21,7 +21,7 @@
   <title>yammer.jp</title>
   <meta name="description" content={`${tab?.label} - yammer.jp`} />
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <meta property="og:title" content="yammer.jp" />
   <meta property="og:type" content="website" />
   <meta property="og:description" content="yammer is a Web Developper and a Scuba Diver" />
