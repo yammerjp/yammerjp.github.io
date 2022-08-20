@@ -14,7 +14,7 @@
 </div>
 
 <script lang="ts">
-import tabDefinitions from '$lib/feedsManagement/TabDefinitions.json'
+import tabDefinitions from '$lib/dataSources/TabDefinitions.json'
 
 export let selectedTabId = tabDefinitions[0].id;
 

@@ -1,6 +1,6 @@
 <script context="module" lang="ts">
   import type { Load } from '@sveltejs/kit'
-  import TabDefinitions from '$lib/feedsManagement/TabDefinitions'
+  import TabDefinitions from '$lib/dataSources/TabDefinitions'
   import { loadInternalEndpointFeeds } from '$lib/loadInternalEndpointFeeds'
 
   export const prerender = true;
