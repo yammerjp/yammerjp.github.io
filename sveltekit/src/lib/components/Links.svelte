@@ -1,49 +1,49 @@
 <div class="links">
   {#each linkItems as linkItem}
-    <!-- <div class="link-item"> -->
       <a href="{linkItem.url}">
-        <img class="links-icon {linkItem.id}" src="{linkItem.imgSrc}" alt="{linkItem.displayTitle} icon"/>
-        <div class="title-wrapper"><span class="title">{linkItem.displayTitle}</span></div>
+        <img class="links-icon {linkItem.id}" src="{linkItem.imgSrc}" alt="{linkItem.labelLineBreakable.join('')} icon"/>
+        <div class="title-wrapper"><span class="title">
+            {#each linkItem.labelLineBreakable as line, i}{#if i !== 0}<wbr>{/if}{line}{/each}
+          </span></div>
       </a>
-    <!-- </div> -->
   {/each}
 </div>
 
 <script lang="ts">
   type LinkItem = {
     id: string;
-    displayTitle: string;
+    labelLineBreakable: string[];
     url: string;
     imgSrc: string;
   }
   const linkItems: LinkItem[] = [
     {
       id: 'twitter',
-      displayTitle: 'Twitter',
+      labelLineBreakable: ['Twitter'],
       url: 'https://twitter.com/yammerjp',
       imgSrc: '/assets/twitter.png'
     },
     {
       id: 'github',
-      displayTitle: 'GitHub',
+      labelLineBreakable: ['GitHub'],
       url: 'https://github.com/yammerjp',
       imgSrc: '/assets/github.png'
     },
     {
       id: 'qiita',
-      displayTitle: 'Qiita',
+      labelLineBreakable: ['Qiita'],
       url: 'https://qiita.com/yammerjp',
       imgSrc: '/assets/qiita.png'
     },
     {
       id: 'hatenablog',
-      displayTitle: 'はてなブログ',
+      labelLineBreakable: ['はてなブログ'],
       url: 'https://basd4g.hatenablog.com',
       imgSrc: '/assets/hatenablog.png'
     },
     {
       id: 'memo-yammer-jp',
-      displayTitle: 'memo.yammer.jp',
+      labelLineBreakable: ['memo', '.' , 'yammer', '.', 'jp'],
       url: 'https://memo.yammer.jp',
       imgSrc: '/assets/memo-yammer-jp.png'
     },
