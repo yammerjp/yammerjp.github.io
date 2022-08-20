@@ -1,20 +1,35 @@
 import { fetchFeeds } from './JsonFeedFetcher'
 import type { JsonFeedItemWithSummary } from './JsonFeedFetcher'
 
+const siteNameCorrespondences = [
+  {
+    applicableRegex: /^https:\/\/memo\.yammer\.jp\//,
+    siteName:  'memo.yammer.jp'
+  },
+  {
+    applicableRegex: /^https:\/\/basd4g\.hatenablog\.com\//,
+    siteName: 'はてなブログ'
+  },
+  {
+    applicableRegex: /^https:\/\/qiita\.com\/yammerjp\//,
+    siteName: 'Qiita'
+  },
+  {
+    applicableRegex: /^https:\/\/microblog\.yammer\.jp/,
+    siteName: 'microblog'
+  },
+  {
+    applicableRegex: /^https:\/\/speakerdeck\.com/,
+    siteName: 'Speaker Deck'
+  },
+  {
+    applicableRegex: /^https:\/\/tech\.pepabo\.com/,
+    siteName: 'Pepabo Tech Portal'
+  }
+]
+
 function siteName(url: string): string {
-  if (/^https:\/\/memo\.yammer\.jp\//.test(url)) {
-    return 'memo.yammer.jp';
-  }
-  if (/^https:\/\/basd4g\.hatenablog\.com\//.test(url)) {
-    return 'はてなブログ';
-  }
-  if (/^https:\/\/qiita\.com\/yammerjp\//.test(url)) {
-    return 'Qiita';
-  }
-  if (/^https:\/\/microblog\.yammer\.jp/.test(url)) {
-    return 'microblog';
-  }
-  return url;
+  return siteNameCorrespondences.find(c => c.applicableRegex.test(url))?.siteName ?? url
 }
 
 export const transformFeeds = (feeds: JsonFeedItemWithSummary[]) => feeds.map(elm => ({
