@@ -1,5 +1,12 @@
 [
     {
+        "title": "比較演算を壊してみる",
+        "url": "https://speakerdeck.com/yammerjp/php-break-comparison",
+        "id": "https://speakerdeck.com/yammerjp/php-break-comparison",
+        "date_published": "2022-09-27T00:00:00+09:00",
+        "_content_html": "<script async class=\"speakerdeck-embed\" data-id=\"3a581bb0b0dd4de79baaefddef0e02d6\" data-ratio=\"1.77725118483412\" src=\"//speakerdeck.com/assets/embed.js\"></script>",
+        "content_html": "<iframe class=\"speakerdeck-iframe\" frameborder=\"0\" src=\"https://speakerdeck.com/player/3a581bb0b0dd4de79baaefddef0e02d6\" title=\"比較演算を壊してみる / php-break-comparison\" allowfullscreen=\"true\" mozallowfullscreen=\"true\" webkitallowfullscreen=\"true\" style=\"border: 0px; background: padding-box padding-box rgba(0, 0, 0, 0.1); margin: 0px; padding: 0px; border-radius: 6px; box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 40px; width: 100%; aspect-ratio: 16/9;\" data-ratio=\"1.7777777777777777\"></iframe>"
+    }, {
         "title": "切り取り方を工夫してアプリケーションを漸進的に改善する",
         "url": "https://speakerdeck.com/yammerjp/incremental-improvement-by-devising-application-change-boundaries",
         "id": "https://speakerdeck.com/yammerjp/incremental-improvement-by-devising-application-change-boundaries",
