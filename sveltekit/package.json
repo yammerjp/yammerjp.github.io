@@ -34,5 +34,15 @@
 	"dependencies": {
 		"@fontsource/fira-mono": "^4.5.0",
 		"cookie": "^0.4.1"
+	},
+	"cacheregi": {
+		"distribution": "build",
+		"dependencies": [
+			"../angular"
+		],
+		"scope": "yammerjp",
+		"name": "yammerjp.github.io",
+		"cache-seconds": "604800",
+		"registry": "http://localhost:4873"
 	}
 }
