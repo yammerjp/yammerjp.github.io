@@ -1,5 +1,12 @@
 [
   {
+        "title": "最強の開発環境 探求の道 - 第1回 dotfilesを管理して，再現可能な開発環境を作る ",
+        "url": "https://gihyo.jp/magazine/SD/archive/2023/202301",
+        "id": "https://gihyo.jp/magazine/SD/archive/2023/202301",
+        "date_published": "2022-12-16T00:00:00+09:00",
+        "content_html": "<div>Software Design 2023年1月号</div><div>新連載 最強の開発環境 探求の道</div><div>第1回 dotfilesを管理して，再現可能な開発環境を作る</div><div>発行元: 技術評論社</div>"
+  },
+  {
         "title": "dotfilesのススメ",
         "url": "https://gihyo.jp/magazine/SD/archive/2022/202206",
         "id": "https://gihyo.jp/magazine/SD/archive/2022/202206",
@@ -7,4 +14,3 @@
         "content_html": "<div>Software Design 2022年6月号</div><div>第一特集 シェルの基本大全 どんな環境でも迷わない・困らない知識</div><div>Appendix: dotfilesのススメ どこでもサクッと自分好みの設定を適用しよう！</div><div>発行元: 技術評論社</div>"
   }
 ]
-
