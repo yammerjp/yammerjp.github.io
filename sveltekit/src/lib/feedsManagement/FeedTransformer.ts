@@ -19,6 +19,11 @@ const siteNameCorrespondences = [
     siteName: 'microblog'
   },
   {
+    applicableRegex: /^https:\/\/usememos\.yammer\.jp/,
+    siteName: 'microblog'
+  },
+
+  {
     applicableRegex: /^https:\/\/speakerdeck\.com/,
     siteName: 'Speaker Deck'
   },
