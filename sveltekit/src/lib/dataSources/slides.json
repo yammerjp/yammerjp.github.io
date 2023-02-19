@@ -1,5 +1,12 @@
 [
     {
+        "title": "dotfilesを管理しよう",
+        "url": "https://speakerdeck.com/yammerjp/get-started-with-dotfiles-management",
+        "id": "https://speakerdeck.com/yammerjp/get-started-with-dotfiles-management",
+        "date_published": "2023-01-26T00:00:00+09:00",
+        "_content_html": "<script async class=\"speakerdeck-embed\" data-id=\"0a16fa8a9c064d46a31a558a8ed5af71\" data-ratio=\"1.77725118483412\" src=\"//speakerdeck.com/assets/embed.js\"></script>",
+        "content_html": "<iframe class=\"speakerdeck-iframe\" frameborder=\"0\" src=\"https://speakerdeck.com/player/0a16fa8a9c064d46a31a558a8ed5af71\" title=\"dotfilesを管理しよう / get-started-with-dotfiles-management\" allowfullscreen=\"true\" mozallowfullscreen=\"true\" webkitallowfullscreen=\"true\" style=\"border: 0px; background: padding-box padding-box rgba(0, 0, 0, 0.1); margin: 0px; padding: 0px; border-radius: 6px; box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 40px; width: 100%; aspect-ratio: 16/9;\" data-ratio=\"1.7777777777777777\"></iframe>"
+    }, {
         "title": "比較演算を壊してみる",
         "url": "https://speakerdeck.com/yammerjp/php-break-comparison",
         "id": "https://speakerdeck.com/yammerjp/php-break-comparison",
