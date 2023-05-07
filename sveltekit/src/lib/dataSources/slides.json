@@ -1,5 +1,19 @@
 [
     {
+        "title": "jpro: JSON Processor",
+        "url": "https://speakerdeck.com/yammerjp/jpro-json-processor",
+        "id": "https://speakerdeck.com/yammerjp/jpro-json-processor",
+        "date_published": "2023-03-30T00:00:00+09:00",
+        "_content_html": "<script async class=\"speakerdeck-embed\" data-id=\"4f035ab16ea44bf9b7066d661258838a\" data-ratio=\"1.77725118483412\" src=\"//speakerdeck.com/assets/embed.js\"></script>",
+        "content_html": "<iframe class=\"speakerdeck-iframe\" frameborder=\"0\" src=\"https://speakerdeck.com/player/4f035ab16ea44bf9b7066d661258838a\" title=\"jpro: JSON Processor\" allowfullscreen=\"true\" mozallowfullscreen=\"true\" webkitallowfullscreen=\"true\" style=\"border: 0px; background: padding-box padding-box rgba(0, 0, 0, 0.1); margin: 0px; padding: 0px; border-radius: 6px; box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 40px; width: 100%; aspect-ratio: 16/9;\" data-ratio=\"1.7777777777777777\"></iframe>"
+    }, {
+        "title": "クイズを作ってPHPに親しむ",
+        "url": "https://speakerdeck.com/yammerjp/make-quizzes-and-get-familiar-with-php",
+        "id": "https://speakerdeck.com/yammerjp/make-quizzes-and-get-familiar-with-php",
+        "date_published": "2023-03-23T00:00:00+09:00",
+        "_content_html": "<script async class=\"speakerdeck-embed\" data-id=\"b270af08991e4bd6980dbc6b73cd98a6\" data-ratio=\"1.77725118483412\" src=\"//speakerdeck.com/assets/embed.js\"></script>",
+        "content_html": "<iframe class=\"speakerdeck-iframe\" frameborder=\"0\" src=\"https://speakerdeck.com/player/b270af08991e4bd6980dbc6b73cd98a6\" title=\"クイズを作ってPHPに親しむ / Make quizzes and get familiar with PHP\" allowfullscreen=\"true\" mozallowfullscreen=\"true\" webkitallowfullscreen=\"true\" style=\"border: 0px; background: padding-box padding-box rgba(0, 0, 0, 0.1); margin: 0px; padding: 0px; border-radius: 6px; box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 40px; width: 100%; aspect-ratio: 16/9;\" data-ratio=\"1.7777777777777777\"></iframe>"
+    }, {
         "title": "dotfilesを管理しよう",
         "url": "https://speakerdeck.com/yammerjp/get-started-with-dotfiles-management",
         "id": "https://speakerdeck.com/yammerjp/get-started-with-dotfiles-management",
