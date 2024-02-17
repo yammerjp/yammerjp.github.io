@@ -1,5 +1,13 @@
 [
   {
+    "title": "AI時代のECサイト運営体験: カラーミーショップとOpenAI GPTsでつくる、ショップ運営アシスタント",
+    "url": "https://tech.pepabo.com/2024/01/11/colormeshop-and-openai-gpts/",
+    "id": "https://tech.pepabo.com/2024/01/11/colormeshop-and-openai-gpts/",
+    "date_published": "2024-01-11T00:00:00+09:00",
+    "content_text": "昨今、OpenAIのChatGPTをはじめとする、生成AIの発展が注目されています。 弊社の運営するECサイト構築サービス カラーミーショップ においても、生成AIの活用を進めています。 2023年には、カラーミーAIアシスタント(β)をリリースしました。今回は、昨年提供を開始した生成AIに関連する機能とは少し違う、生成AIとカラーミーショップの使い方について説明します。 OpenAI GPTsとカラーミーショップAPIを組み合わせて作成できる、ショップ運営アシスタントの紹介です。",
+    "_site_name": "Pepabo Tech Portal"
+  },
+  {
     "title": "PHPerKaigi2023 レポート",
     "url": "https://tech.pepabo.com/2023/04/28/phperkaigi2023/",
     "id": "https://tech.pepabo.com/2023/04/28/phperkaigi2023/",

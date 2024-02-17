@@ -1,5 +1,26 @@
 [
     {
+        "title": "生成AIとの対話から、概念をみつけ、名前をつける",
+        "url": "https://speakerdeck.com/yammerjp/name-it-with-generative-ai",
+        "id": "https://speakerdeck.com/yammerjp/name-it-with-generative-ai",
+        "date_published": "2023-05-22T00:00:00+09:00",
+        "_content_html": "<script async class=\"speakerdeck-embed\" data-id=\"3121d002b99643fab08188174ee03f61\" data-ratio=\"1.77725118483412\" src=\"//speakerdeck.com/assets/embed.js\"></script>",
+        "content_html": "<iframe class=\"speakerdeck-iframe\" frameborder=\"0\" src=\"https://speakerdeck.com/player/3121d002b99643fab08188174ee03f61\" title=\" 生成AIとの対話から、概念をみつけ、名前をつける / Name it with generative AI\" allowfullscreen=\"true\" mozallowfullscreen=\"true\" webkitallowfullscreen=\"true\" style=\"border: 0px; background: padding-box padding-box rgba(0, 0, 0, 0.1); margin: 0px; padding: 0px; border-radius: 6px; box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 40px; width: 100%; aspect-ratio: 16/9;\" data-ratio=\"1.7777777777777777\"></iframe>"
+    }, {
+        "title": "awkでつくってわかるWebアプリケーション",
+        "url": "https://speakerdeck.com/yammerjp/web-application-implementation-in-awk",
+        "id": "https://speakerdeck.com/yammerjp/web-application-implementation-in-awk",
+        "date_published": "2023-05-22T00:00:00+09:00",
+        "_content_html": "<script async class=\"speakerdeck-embed\" data-id=\"e5bc4d40d6764c02911a0a00442bd6ee\" data-ratio=\"1.77725118483412\" src=\"//speakerdeck.com/assets/embed.js\"></script>",
+        "content_html": "<iframe class=\"speakerdeck-iframe\" frameborder=\"0\" src=\"https://speakerdeck.com/player/e5bc4d40d6764c02911a0a00442bd6ee\" title=\"awkでつくってわかるWebアプリケーション / Web Application Implementation in awk\" allowfullscreen=\"true\" mozallowfullscreen=\"true\" webkitallowfullscreen=\"true\" style=\"border: 0px; background: padding-box padding-box rgba(0, 0, 0, 0.1); margin: 0px; padding: 0px; border-radius: 6px; box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 40px; width: 100%; aspect-ratio: 16/9;\" data-ratio=\"1.7777777777777777\"></iframe>"
+    }, {
+        "title": "awk basics",
+        "url": "https://speakerdeck.com/yammerjp/awk-basics",
+        "id": "https://speakerdeck.com/yammerjp/awk-basics",
+        "date_published": "2023-05-22T00:00:00+09:00",
+        "_content_html": "<script async class=\"speakerdeck-embed\" data-id=\"c9d91619d0d64df3966340ba5a090226\" data-ratio=\"1.77725118483412\" src=\"//speakerdeck.com/assets/embed.js\"></script>",
+        "content_html": "<iframe class=\"speakerdeck-iframe\" frameborder=\"0\" src=\"https://speakerdeck.com/player/c9d91619d0d64df3966340ba5a090226\" title=\"awk basics\" allowfullscreen=\"true\" mozallowfullscreen=\"true\" webkitallowfullscreen=\"true\" style=\"border: 0px; background: padding-box padding-box rgba(0, 0, 0, 0.1); margin: 0px; padding: 0px; border-radius: 6px; box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 40px; width: 100%; aspect-ratio: 16/9;\" data-ratio=\"1.7777777777777777\"></iframe>"
+    }, {
         "title": "jpro: JSON Processor",
         "url": "https://speakerdeck.com/yammerjp/jpro-json-processor",
         "id": "https://speakerdeck.com/yammerjp/jpro-json-processor",
